@@ -106,10 +106,10 @@ namespace Scripts
             // create the bullet object locally
             var bullet = Instantiate(
                  bulletPrefab,
-                 transform.position - transform.forward,
+                 transform.position + transform.forward,
                  Quaternion.identity);
 
-            bullet.GetComponent<Rigidbody>().velocity = -transform.forward * 40;
+            bullet.GetComponent<Rigidbody>().velocity = transform.forward * 40;
 
             // spawn the bullet on the clients
             NetworkServer.Spawn(bullet);
