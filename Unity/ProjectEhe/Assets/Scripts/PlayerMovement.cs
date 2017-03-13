@@ -40,7 +40,7 @@ namespace Scripts
 
         void GetInput()
         {
-            if (player.GetButtonDown("Shoot"))
+            if (player.GetButtonDown("Fire"))
             {
                 CmdFire();
             }
@@ -76,19 +76,19 @@ namespace Scripts
             switch (action)
             {
                 case Enumerations.Action.TurnRight:
-                    transform.Rotate(Vector3.right);
+                    transform.Rotate(transform.rotation.x, transform.rotation.y + 90, transform.rotation.z);
                     break;
                 case Enumerations.Action.TurnLeft:
-                    transform.Rotate(Vector3.left);
+                    transform.Rotate(transform.rotation.x, transform.rotation.y - 90, transform.rotation.z);
                     break;
                 case Enumerations.Action.Reverse:
-                    transform.Translate(-transform.forward);
+                    transform.Translate(-Vector3.forward);
                     break;
                 case Enumerations.Action.ShortMove:
-                    transform.Translate(transform.forward);
+                    transform.Translate(Vector3.forward);
                     break;
                 case Enumerations.Action.LongMove:
-                    transform.Translate(transform.forward * 2);
+                    transform.Translate(Vector3.forward * 2);
                     break;
                 case Enumerations.Action.Shoot:
                     CmdFire();
