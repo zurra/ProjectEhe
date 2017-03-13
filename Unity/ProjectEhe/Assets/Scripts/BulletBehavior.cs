@@ -10,7 +10,8 @@ namespace Scripts
             var hitPlayer = hit.GetComponent<PlayerMovement>();
             if (hitPlayer != null)
             {
-                Debug.Log("BOOM");
+                var combat = hit.GetComponent<PlayerState>();
+                combat.TakeDamage(1);
                 Destroy(gameObject);
             }
         }
