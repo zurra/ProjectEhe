@@ -1,11 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
+using Rewired;
 
 namespace Scripts
 {
     public class PlayerMovement : NetworkBehaviour
     {
         public GameObject bulletPrefab;
+        public Player player;
+
+        public int playerId = 0;
+
+        void Awake()
+        {
+            // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
+            player = ReInput.players.GetPlayer(playerId);
+        }
 
         public override void OnStartLocalPlayer()
         {
@@ -19,14 +30,71 @@ namespace Scripts
                 return;
             }
 
-            var x = Input.GetAxis("Horizontal") * 0.1f;
-            var z = Input.GetAxis("Vertical") * 0.1f;
+            //var x = Input.GetAxis("Horizontal") * 0.1f;
+            //var z = Input.GetAxis("Vertical") * 0.1f;
 
-            transform.Translate(x, 0, z);
+            //transform.Translate(x, 0, z);
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {                
+            GetInput();
+        }
+
+        void GetInput()
+        {
+            if (player.GetButtonDown("Shoot"))
+            {
                 CmdFire();
+            }
+            else if (player.GetButtonDown("Move Counterclockwise"))
+            {
+                DoAction(Enumerations.Action.TurnLeft);
+                Debug.Log("Move counterclockwise");
+            }
+            else if (player.GetButtonDown("Move Clockwise"))
+            {
+                DoAction(Enumerations.Action.TurnRight);
+                Debug.Log("Move clockwise");
+            }
+            else if (player.GetButtonDown("Short Move"))
+            {
+                DoAction(Enumerations.Action.ShortMove);
+                Debug.Log("Short Move");
+            }
+            else if (player.GetButtonDown("Long Move"))
+            {
+                DoAction(Enumerations.Action.LongMove);
+                Debug.Log("Long Move");
+            }
+            else if (player.GetButtonDown("Reverse"))
+            {
+                DoAction(Enumerations.Action.Reverse);
+                Debug.Log("Reverse");
+            }
+        }
+
+        void DoAction(Enumerations.Action action)
+        {
+            switch (action)
+            {
+                case Enumerations.Action.TurnRight:
+                    transform.Rotate(Vector3.right);
+                    break;
+                case Enumerations.Action.TurnLeft:
+                    transform.Rotate(Vector3.left);
+                    break;
+                case Enumerations.Action.Reverse:
+                    transform.Translate(-transform.forward);
+                    break;
+                case Enumerations.Action.ShortMove:
+                    transform.Translate(transform.forward);
+                    break;
+                case Enumerations.Action.LongMove:
+                    transform.Translate(transform.forward * 2);
+                    break;
+                case Enumerations.Action.Shoot:
+                    CmdFire();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("action", action, null);
             }
         }
 
