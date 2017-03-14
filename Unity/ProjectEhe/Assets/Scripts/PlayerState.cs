@@ -9,20 +9,23 @@ namespace Assets.Scripts
         public const int maxHealth = 10;
         public UIManager UIManager;
         
-        [SyncVar]
-        private int health;
+        [SyncVar (hook = "OnHealthChanged")]
+        public int Health;
 
-        public int Health {
-            get { return health; }
-            set { if(health != value) {
-                    health = value;
-                    if (isLocalPlayer)
-                    {
-                        Debug.Log("Health lost!");
-                        OnPropertyChanged("Health");
-                    }
-                }
-            } }
+        //public int Health {
+        //    get { return health; }
+        //    set { if(health != value) {
+        //            health = value;
+        //            if (isLocalPlayer)
+        //            {
+        //                OnPropertyChanged("Health");
+        //            }
+        //            else if (!isLocalPlayer)
+        //            {
+        //                OnPropertyChanged("OppHealth");
+        //            }
+        //        }
+        //    } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,6 +36,14 @@ namespace Assets.Scripts
             //if (isLocalPlayer)
             //{
             //    UIManager.SetPlayerState(GetComponent<PlayerState>());
+            UIManager = FindObjectOfType<UIManager>();
+            //if (isLocalPlayer)
+            //{
+            //UIManager.SetPlayerState(GetComponent<PlayerState>());
+            //}
+            //else if (!isLocalPlayer)
+            //{
+            //UIManager.SetEnemyPlayerState(GetComponent<PlayerState>());
             //}
         }
 
@@ -42,12 +53,6 @@ namespace Assets.Scripts
                 return;
 
             Health -= amount;
-            if (Health <= 0)
-            {
-                Health = maxHealth;
-                Debug.Log("Dead!");
-                RpcRespawn();
-            }
         }
 
         [ClientRpc]
@@ -56,6 +61,36 @@ namespace Assets.Scripts
             if (isLocalPlayer)
             {
                 transform.position = Vector3.zero;
+            }
+        }
+
+        public void OnHealthChanged(int health)
+        {
+            if (isLocalPlayer)
+            {
+                UIManager.ChangeHealthText(health);
+                //OnPropertyChanged("Health");
+            }
+            else if (!isLocalPlayer)
+            {
+                UIManager.ChangeOppText(health);
+                //OnPropertyChanged("OppHealth");
+            }
+
+            if (health <= 0)
+            {
+                Health = maxHealth;
+                if (isLocalPlayer)
+                {
+                    UIManager.Lose();
+                    //OnPropertyChanged("YouDead");
+                }
+                else if (!isLocalPlayer)
+                {
+                    UIManager.Win();
+                    //OnPropertyChanged("YouWin");
+                }
+                RpcRespawn();
             }
         }
 

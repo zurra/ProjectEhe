@@ -29,3 +29,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Unity/ProjectEhe/Builds/
+Unity/ProjectEhe/Assets/Standard Assets/
+Unity/ProjectEhe/Assets/Particle Ribbon/
+Unity/ProjectEhe/Assets/EffectExamples/
