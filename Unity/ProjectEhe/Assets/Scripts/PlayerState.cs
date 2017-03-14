@@ -31,12 +31,12 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            Health = maxHealth;
             //UIManager = FindObjectOfType<UIManager>();
             //if (isLocalPlayer)
             //{
             //    UIManager.SetPlayerState(GetComponent<PlayerState>());
             UIManager = FindObjectOfType<UIManager>();
+            Health = maxHealth;
             //if (isLocalPlayer)
             //{
             //UIManager.SetPlayerState(GetComponent<PlayerState>());
