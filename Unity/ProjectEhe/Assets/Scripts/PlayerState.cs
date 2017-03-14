@@ -33,6 +33,10 @@ namespace Assets.Scripts
 
         public void Start()
         {
+            //UIManager = FindObjectOfType<UIManager>();
+            //if (isLocalPlayer)
+            //{
+            //    UIManager.SetPlayerState(GetComponent<PlayerState>());
             UIManager = FindObjectOfType<UIManager>();
             Health = maxHealth;
             ActionList = new List<Enumerations.Action>();
