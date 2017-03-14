@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts
+namespace Assets.Scripts
 {
     public class BulletBehavior : MonoBehaviour
     {

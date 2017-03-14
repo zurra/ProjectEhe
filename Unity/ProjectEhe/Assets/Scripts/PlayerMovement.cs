@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Scripts
+namespace Assets.Scripts
 {
     public class PlayerMovement : NetworkBehaviour
     {
