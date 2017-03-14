@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Rewired;
+using Scripts;
 
 namespace Assets.Scripts
 {
@@ -9,13 +11,24 @@ namespace Assets.Scripts
     {
         public GameObject bulletPrefab;
         public Player player;
+        public int Id;
 
-        public int playerId = 0;
+
+        public int rewiredPlayerId = 0;
+
+        public bool InputAllowed;
+
+        //public delegate void PlayerActionEventHandler(int hostId, Enumerations.Action action);
+        //public PlayerActionEventHandler PlayerActionGiven;
+
+        private List<Enumerations.Action> _actions = new List<Enumerations.Action>();
+        private GameManager _gameManager;
 
         void Awake()
         {
             // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
-            player = ReInput.players.GetPlayer(playerId);
+            player = ReInput.players.GetPlayer(rewiredPlayerId);
+            _gameManager = FindObjectOfType<GameManager>();
         }
 
         public override void OnStartLocalPlayer()
@@ -35,44 +48,81 @@ namespace Assets.Scripts
 
             //transform.Translate(x, 0, z);
 
-            GetInput();
+            if (!InputAllowed)
+                return;
+
+            RpcGetInput();
         }
 
-        void GetInput()
+        public void AskForInput()
+        {
+            _actions.Clear();
+            InputAllowed = true;
+        }
+
+        [ClientRpc]
+        void RpcGetInput()
         {
             if (player.GetButtonDown("Fire"))
             {
-                CmdFire();
+                _gameManager.PlayerActionGiven(Id, Enumerations.Action.Shoot);
+
+                //if(PlayerActionGiven != null)
+                //    PlayerActionGiven(Id, Enumerations.Action.Shoot);
+                //CmdFire();
             }
             else if (player.GetButtonDown("Move Counterclockwise"))
             {
-                DoAction(Enumerations.Action.TurnLeft);
+                _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
+
+                //DoAction(Enumerations.Action.TurnLeft);
+                //if (PlayerActionGiven != null)
+                //    PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
                 Debug.Log("Move counterclockwise");
             }
             else if (player.GetButtonDown("Move Clockwise"))
             {
-                DoAction(Enumerations.Action.TurnRight);
+                _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnRight);
+
+                //DoAction(Enumerations.Action.TurnRight);
+                //if (PlayerActionGiven != null)
+                //    PlayerActionGiven(Id, Enumerations.Action.TurnRight);
                 Debug.Log("Move clockwise");
             }
             else if (player.GetButtonDown("Short Move"))
             {
-                DoAction(Enumerations.Action.ShortMove);
+                _gameManager.PlayerActionGiven(Id, Enumerations.Action.ShortMove);
+
+                //DoAction(Enumerations.Action.ShortMove);
+                //if (PlayerActionGiven != null)
+                //    PlayerActionGiven(Id, Enumerations.Action.ShortMove);
                 Debug.Log("Short Move");
             }
             else if (player.GetButtonDown("Long Move"))
             {
-                DoAction(Enumerations.Action.LongMove);
+                _gameManager.PlayerActionGiven(Id, Enumerations.Action.LongMove);
+
+                //DoAction(Enumerations.Action.LongMove);
+                //if (PlayerActionGiven != null)
+                //    PlayerActionGiven(Id, Enumerations.Action.LongMove);
                 Debug.Log("Long Move");
             }
             else if (player.GetButtonDown("Reverse"))
             {
-                DoAction(Enumerations.Action.Reverse);
+                _gameManager.PlayerActionGiven(Id, Enumerations.Action.Reverse);
+
+                //DoAction(Enumerations.Action.Reverse);
+                //if (PlayerActionGiven != null)
+                //    PlayerActionGiven(Id, Enumerations.Action.Reverse);
+
                 Debug.Log("Reverse");
             }
         }
 
-        void DoAction(Enumerations.Action action)
+        public void DoAction(Enumerations.Action action)
         {
+            Debug.Log("Player " + Id + " Do action " + action);
+
             switch (action)
             {
                 case Enumerations.Action.TurnRight:
