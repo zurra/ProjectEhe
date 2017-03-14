@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using Rewired;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace Assets.Scripts
 {
@@ -9,6 +11,8 @@ namespace Assets.Scripts
     {
         public GameObject bulletPrefab;
         public Player player;
+        public PlayerState PlayerState;
+        public List<Enumerations.Action> ActionList;
 
         public int playerId = 0;
 
@@ -16,11 +20,13 @@ namespace Assets.Scripts
         {
             // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
             player = ReInput.players.GetPlayer(playerId);
+            ActionList = new List<Enumerations.Action>();
         }
 
         public override void OnStartLocalPlayer()
         {
             GetComponent<MeshRenderer>().material.color = Color.black;
+            PlayerState = GetComponent<PlayerState>();          
         }
 
         void Update()
@@ -42,32 +48,33 @@ namespace Assets.Scripts
         {
             if (player.GetButtonDown("Fire"))
             {
-                CmdFire();
+                //CmdFire();
+                DisplayCommands(Enumerations.Action.Shoot);
             }
             else if (player.GetButtonDown("Move Counterclockwise"))
             {
-                DoAction(Enumerations.Action.TurnLeft);
-                Debug.Log("Move counterclockwise");
+                //DoAction(Enumerations.Action.TurnLeft);
+                DisplayCommands(Enumerations.Action.TurnLeft);
             }
             else if (player.GetButtonDown("Move Clockwise"))
             {
-                DoAction(Enumerations.Action.TurnRight);
-                Debug.Log("Move clockwise");
+                //DoAction(Enumerations.Action.TurnRight);
+                DisplayCommands(Enumerations.Action.TurnRight);
             }
             else if (player.GetButtonDown("Short Move"))
             {
-                DoAction(Enumerations.Action.ShortMove);
-                Debug.Log("Short Move");
+                //DoAction(Enumerations.Action.ShortMove);
+                DisplayCommands(Enumerations.Action.ShortMove);
             }
             else if (player.GetButtonDown("Long Move"))
             {
-                DoAction(Enumerations.Action.LongMove);
-                Debug.Log("Long Move");
+                //DoAction(Enumerations.Action.LongMove);
+                DisplayCommands(Enumerations.Action.LongMove);
             }
             else if (player.GetButtonDown("Reverse"))
             {
-                DoAction(Enumerations.Action.Reverse);
-                Debug.Log("Reverse");
+                //DoAction(Enumerations.Action.Reverse);
+                DisplayCommands(Enumerations.Action.Reverse);
             }
         }
 
@@ -95,6 +102,26 @@ namespace Assets.Scripts
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("action", action, null);
+            }
+        }
+
+        public void DisplayCommands(Enumerations.Action action)
+        {
+            if (ActionList.Count < 4)
+            {
+                PlayerState.DisplayCommands(action);
+                ActionList.Add(action);
+            }
+            else if (ActionList.Count >= 4)
+            {
+                ActionList.Add(action);
+                PlayerState.DisplayCommands(action);
+                for (var i = 0; i < ActionList.Count; i++)
+                {
+                    if (ActionList[i] == Enumerations.Action.Shoot) CmdFire();
+                    else if (ActionList[i] != Enumerations.Action.Shoot) DoAction(ActionList[i]);
+                }
+                ActionList.Clear();
             }
         }
 

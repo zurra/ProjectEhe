@@ -1,6 +1,7 @@
 ﻿using UnityEngine.Networking;
 using UnityEngine;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
@@ -8,6 +9,7 @@ namespace Assets.Scripts
     {
         public const int maxHealth = 10;
         public UIManager UIManager;
+        public List<Enumerations.Action> ActionList;
         
         [SyncVar (hook = "OnHealthChanged")]
         public int Health;
@@ -33,6 +35,7 @@ namespace Assets.Scripts
         {
             UIManager = FindObjectOfType<UIManager>();
             Health = maxHealth;
+            ActionList = new List<Enumerations.Action>();
             //if (isLocalPlayer)
             //{
             //UIManager.SetPlayerState(GetComponent<PlayerState>());
@@ -88,6 +91,11 @@ namespace Assets.Scripts
                 }
                 RpcRespawn();
             }
+        }
+
+        public void DisplayCommands(Enumerations.Action action)
+        {
+            UIManager.ChangeCommandText(action);
         }
 
         protected void OnPropertyChanged(string name)
