@@ -1,4 +1,4 @@
-﻿namespace Scripts
+﻿namespace Assets.Scripts
 {
     public class Enumerations
     {
