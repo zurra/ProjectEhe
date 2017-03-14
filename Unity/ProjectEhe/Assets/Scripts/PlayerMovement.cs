@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Rewired;
 
-namespace Scripts
+namespace Assets.Scripts
 {
     public class PlayerMovement : NetworkBehaviour
     {
@@ -76,10 +76,10 @@ namespace Scripts
             switch (action)
             {
                 case Enumerations.Action.TurnRight:
-                    transform.Rotate(transform.rotation.x, transform.rotation.y + 90, transform.rotation.z);
+                    transform.RotateAround(transform.position, transform.up, 90);
                     break;
                 case Enumerations.Action.TurnLeft:
-                    transform.Rotate(transform.rotation.x, transform.rotation.y - 90, transform.rotation.z);
+                    transform.RotateAround(transform.position, transform.up, -90);
                     break;
                 case Enumerations.Action.Reverse:
                     transform.Translate(-Vector3.forward);
