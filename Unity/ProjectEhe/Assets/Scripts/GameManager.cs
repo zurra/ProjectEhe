@@ -8,9 +8,12 @@ using UnityEngine.Networking;
 
 namespace Scripts
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : NetworkBehaviour
     {
         public List<PlayerMovement> PlayerMovements = new List<PlayerMovement>();
+
+        private List<int> players;
+        public int AmountOfPlayers;
 
         public struct PlayerAction
         {
@@ -36,6 +39,7 @@ namespace Scripts
         {
            NetworkManager.PlayerAdded += NetworkManagerOnPlayerAdded;
             m_actions.Callback += OnPlayerActionChanged;
+            players = new List<int>();
         }
 
         private void OnPlayerActionChanged(SyncList<PlayerAction>.Operation op, int itemIndex)
@@ -160,6 +164,19 @@ namespace Scripts
             //        PlayerActions[hostId].RemoveAt(0);
             //    }
             //}
+        }
+
+        [Command]
+        public void CmdPlayerReady(int id)
+        {
+            players.Add(id);
+            if (players.Count >= PlayerMovements.Count)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    PlayerMovements[i].ResolveCommands();
+                }
+            }
         }
     }
 }

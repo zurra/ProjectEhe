@@ -29,7 +29,6 @@ namespace Assets.Scripts
         void Awake()
         {
             // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
-            player = ReInput.players.GetPlayer(playerId);
             ActionList = new List<Enumerations.Action>();
             player = ReInput.players.GetPlayer(rewiredPlayerId);
             _gameManager = FindObjectOfType<GameManager>();
@@ -103,52 +102,52 @@ namespace Assets.Scripts
                 //    PlayerActionGiven(Id, Enumerations.Action.Shoot);
                 //CmdFire();
             }
-            else if (player.GetButtonDown("Move Counterclockwise"))
-            {
-                _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
+            //else if (player.GetButtonDown("Move Counterclockwise"))
+            //{
+            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
 
-                //DoAction(Enumerations.Action.TurnLeft);
-                //if (PlayerActionGiven != null)
-                //    PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
-                Debug.Log("Move counterclockwise");
-            }
-            else if (player.GetButtonDown("Move Clockwise"))
-            {
-                _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnRight);
+            //    //DoAction(Enumerations.Action.TurnLeft);
+            //    //if (PlayerActionGiven != null)
+            //    //    PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
+            //    Debug.Log("Move counterclockwise");
+            //}
+            //else if (player.GetButtonDown("Move Clockwise"))
+            //{
+            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnRight);
 
-                //DoAction(Enumerations.Action.TurnRight);
-                //if (PlayerActionGiven != null)
-                //    PlayerActionGiven(Id, Enumerations.Action.TurnRight);
-                Debug.Log("Move clockwise");
-            }
-            else if (player.GetButtonDown("Short Move"))
-            {
-                _gameManager.PlayerActionGiven(Id, Enumerations.Action.ShortMove);
+            //    //DoAction(Enumerations.Action.TurnRight);
+            //    //if (PlayerActionGiven != null)
+            //    //    PlayerActionGiven(Id, Enumerations.Action.TurnRight);
+            //    Debug.Log("Move clockwise");
+            //}
+            //else if (player.GetButtonDown("Short Move"))
+            //{
+            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.ShortMove);
 
-                //DoAction(Enumerations.Action.ShortMove);
-                //if (PlayerActionGiven != null)
-                //    PlayerActionGiven(Id, Enumerations.Action.ShortMove);
-                Debug.Log("Short Move");
-            }
-            else if (player.GetButtonDown("Long Move"))
-            {
-                _gameManager.PlayerActionGiven(Id, Enumerations.Action.LongMove);
+            //    //DoAction(Enumerations.Action.ShortMove);
+            //    //if (PlayerActionGiven != null)
+            //    //    PlayerActionGiven(Id, Enumerations.Action.ShortMove);
+            //    Debug.Log("Short Move");
+            //}
+            //else if (player.GetButtonDown("Long Move"))
+            //{
+            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.LongMove);
 
-                //DoAction(Enumerations.Action.LongMove);
-                //if (PlayerActionGiven != null)
-                //    PlayerActionGiven(Id, Enumerations.Action.LongMove);
-                Debug.Log("Long Move");
-            }
-            else if (player.GetButtonDown("Reverse"))
-            {
-                _gameManager.PlayerActionGiven(Id, Enumerations.Action.Reverse);
+            //    //DoAction(Enumerations.Action.LongMove);
+            //    //if (PlayerActionGiven != null)
+            //    //    PlayerActionGiven(Id, Enumerations.Action.LongMove);
+            //    Debug.Log("Long Move");
+            //}
+            //else if (player.GetButtonDown("Reverse"))
+            //{
+            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.Reverse);
 
-                //DoAction(Enumerations.Action.Reverse);
-                //if (PlayerActionGiven != null)
-                //    PlayerActionGiven(Id, Enumerations.Action.Reverse);
+            //    //DoAction(Enumerations.Action.Reverse);
+            //    //if (PlayerActionGiven != null)
+            //    //    PlayerActionGiven(Id, Enumerations.Action.Reverse);
 
-                Debug.Log("Reverse");
-            }
+            //    Debug.Log("Reverse");
+            //}
         }
 
         public void DoAction(Enumerations.Action action)
@@ -191,12 +190,7 @@ namespace Assets.Scripts
             {
                 ActionList.Add(action);
                 PlayerState.DisplayCommands(action);
-                for (var i = 0; i < ActionList.Count; i++)
-                {
-                    if (ActionList[i] == Enumerations.Action.Shoot) CmdFire();
-                    else if (ActionList[i] != Enumerations.Action.Shoot) DoAction(ActionList[i]);
-                }
-                ActionList.Clear();
+                _gameManager.CmdPlayerReady(Id);
             }
         }
 
@@ -218,6 +212,16 @@ namespace Assets.Scripts
 
             // when the bullet is destroyed on the server it will automaticaly be destroyed on clients
             Destroy(bullet, 2.0f);
+        }
+
+        public void ResolveCommands()
+        {
+            for (var i = 0; i < ActionList.Count; i++)
+            {
+                if (ActionList[i] == Enumerations.Action.Shoot) CmdFire();
+                else if (ActionList[i] != Enumerations.Action.Shoot) DoAction(ActionList[i]);
+            }
+            ActionList.Clear();
         }
     }
 }

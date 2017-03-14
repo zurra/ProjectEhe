@@ -72,7 +72,7 @@ Transform:
   m_GameObject: {fileID: 1541794888948706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.753859, y: -0.0000017285347, z: -14.537163}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4769359284764196}
   m_Father: {fileID: 0}
@@ -215,7 +215,9 @@ MonoBehaviour:
     type: 2}
   PlayerState: {fileID: 0}
   ActionList: 
-  playerId: 0
+  Id: 0
+  rewiredPlayerId: 0
+  InputAllowed: 0
 --- !u!114 &114783894042620298
 MonoBehaviour:
   m_ObjectHideFlags: 1
