@@ -176,6 +176,8 @@ namespace Scripts
                 {
                     PlayerMovements[i].ResolveCommands();
                 }
+
+                players.Clear();
             }
         }
     }

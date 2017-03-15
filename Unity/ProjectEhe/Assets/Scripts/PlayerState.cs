@@ -69,6 +69,9 @@ namespace Assets.Scripts
 
         public void OnHealthChanged(int health)
         {
+            if(UIManager == null)
+                UIManager = FindObjectOfType<UIManager>();
+
             if (isLocalPlayer)
             {
                 UIManager.ChangeHealthText(health);
