@@ -139,15 +139,26 @@ namespace Scripts
             players.Add(id);
             if (players.Count >= PlayerMovements.Count)
             {
-                for (int i = 0; i < players.Count; i++)
-                {
-                    PlayerMovements[i].ResolveCommands();
-                }
-
-                players.Clear();
+                StartCoroutine("ResolveActions");
             }
         }
 
+        public IEnumerator ResolveActions()
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    PlayerMovements[i].ResolveCommands(j);
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+            players.Clear();
+            foreach(var player in PlayerMovements)
+            {
+                player.ActionList.Clear();
+            }
+        }
      
     }
 }

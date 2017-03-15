@@ -176,23 +176,23 @@ namespace Assets.Scripts
         }
 
         
-        public void ResolveCommands()
+        public void ResolveCommands(int action)
         {
-            RpcResolveCommands();
+            RpcResolveCommands(action);
         }
 
         [ClientRpc]
-        public void RpcResolveCommands()
+        public void RpcResolveCommands(int action)
         {
             if(!isLocalPlayer)
                 return;
 
-            for (var i = 0; i < ActionList.Count; i++)
-            {
-                if (ActionList[i] == Enumerations.Action.Shoot) CmdFire();
-                else if (ActionList[i] != Enumerations.Action.Shoot) DoAction(ActionList[i]);
-            }
-            ActionList.Clear();
+            //for (var i = 0; i < ActionList.Count; i++)
+            //{
+                if (ActionList[action] == Enumerations.Action.Shoot) CmdFire();
+                else if (ActionList[action] != Enumerations.Action.Shoot) DoAction(ActionList[action]);
+            //}
+            //ActionList.Clear();
         }
 
         //[Command]
@@ -200,8 +200,6 @@ namespace Assets.Scripts
         //{
         //    _gameManager.
         //}
-
-
     }
 }
 
