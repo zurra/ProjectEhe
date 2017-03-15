@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using Rewired;
+using Scripts;
 
 namespace Assets.Scripts
 {
