@@ -18,12 +18,12 @@ namespace Assets.Scripts
 
         public int rewiredPlayerId = 0;
 
-        public bool InputAllowed;
+        //[SyncVar(hook = "OnInputAllowedChanged")]
+        //public bool InputAllowed = true;
 
         //public delegate void PlayerActionEventHandler(int hostId, Enumerations.Action action);
         //public PlayerActionEventHandler PlayerActionGiven;
 
-        private List<Enumerations.Action> _actions = new List<Enumerations.Action>();
         private GameManager _gameManager;
 
         void Awake()
@@ -49,107 +49,41 @@ namespace Assets.Scripts
                 return;
             }
 
-            //var x = Input.GetAxis("Horizontal") * 0.1f;
-            //var z = Input.GetAxis("Vertical") * 0.1f;
-
-            //transform.Translate(x, 0, z);
-
-            if (!InputAllowed)
-                return;
-
-            RpcGetInput();
+            GetInput();
         }
 
-        public void AskForInput()
-        {
-            _actions.Clear();
-            InputAllowed = true;
-        }
-
-        [ClientRpc]
-        void RpcGetInput()
+        void GetInput()
         {
             if (player.GetButtonDown("Fire"))
             {
                 //CmdFire();
-                DisplayCommands(Enumerations.Action.Shoot);
+                AddActionToList(Enumerations.Action.Shoot);
             }
             else if (player.GetButtonDown("Move Counterclockwise"))
             {
                 //DoAction(Enumerations.Action.TurnLeft);
-                DisplayCommands(Enumerations.Action.TurnLeft);
+                AddActionToList(Enumerations.Action.TurnLeft);
             }
             else if (player.GetButtonDown("Move Clockwise"))
             {
                 //DoAction(Enumerations.Action.TurnRight);
-                DisplayCommands(Enumerations.Action.TurnRight);
+                AddActionToList(Enumerations.Action.TurnRight);
             }
             else if (player.GetButtonDown("Short Move"))
             {
                 //DoAction(Enumerations.Action.ShortMove);
-                DisplayCommands(Enumerations.Action.ShortMove);
+                AddActionToList(Enumerations.Action.ShortMove);
             }
             else if (player.GetButtonDown("Long Move"))
             {
                 //DoAction(Enumerations.Action.LongMove);
-                DisplayCommands(Enumerations.Action.LongMove);
+                AddActionToList(Enumerations.Action.LongMove);
             }
             else if (player.GetButtonDown("Reverse"))
             {
                 //DoAction(Enumerations.Action.Reverse);
-                DisplayCommands(Enumerations.Action.Reverse);
-                _gameManager.PlayerActionGiven(Id, Enumerations.Action.Shoot);
-
-                //if(PlayerActionGiven != null)
-                //    PlayerActionGiven(Id, Enumerations.Action.Shoot);
-                //CmdFire();
+                AddActionToList(Enumerations.Action.Reverse);
             }
-            //else if (player.GetButtonDown("Move Counterclockwise"))
-            //{
-            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
-
-            //    //DoAction(Enumerations.Action.TurnLeft);
-            //    //if (PlayerActionGiven != null)
-            //    //    PlayerActionGiven(Id, Enumerations.Action.TurnLeft);
-            //    Debug.Log("Move counterclockwise");
-            //}
-            //else if (player.GetButtonDown("Move Clockwise"))
-            //{
-            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.TurnRight);
-
-            //    //DoAction(Enumerations.Action.TurnRight);
-            //    //if (PlayerActionGiven != null)
-            //    //    PlayerActionGiven(Id, Enumerations.Action.TurnRight);
-            //    Debug.Log("Move clockwise");
-            //}
-            //else if (player.GetButtonDown("Short Move"))
-            //{
-            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.ShortMove);
-
-            //    //DoAction(Enumerations.Action.ShortMove);
-            //    //if (PlayerActionGiven != null)
-            //    //    PlayerActionGiven(Id, Enumerations.Action.ShortMove);
-            //    Debug.Log("Short Move");
-            //}
-            //else if (player.GetButtonDown("Long Move"))
-            //{
-            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.LongMove);
-
-            //    //DoAction(Enumerations.Action.LongMove);
-            //    //if (PlayerActionGiven != null)
-            //    //    PlayerActionGiven(Id, Enumerations.Action.LongMove);
-            //    Debug.Log("Long Move");
-            //}
-            //else if (player.GetButtonDown("Reverse"))
-            //{
-            //    _gameManager.PlayerActionGiven(Id, Enumerations.Action.Reverse);
-
-            //    //DoAction(Enumerations.Action.Reverse);
-            //    //if (PlayerActionGiven != null)
-            //    //    PlayerActionGiven(Id, Enumerations.Action.Reverse);
-
-            //    Debug.Log("Reverse");
-            //}
         }
 
         public void DoAction(Enumerations.Action action)
@@ -181,19 +115,44 @@ namespace Assets.Scripts
             }
         }
 
-        public void DisplayCommands(Enumerations.Action action)
+        
+        public void AddActionToList(Enumerations.Action action)
         {
             if (ActionList.Count < 4)
             {
-                PlayerState.DisplayCommands(action);
+                if (isLocalPlayer)
+                {
+                    PlayerState.DisplayCommands(action);
+                }
+
                 ActionList.Add(action);
             }
-            else if (ActionList.Count >= 4)
+            else if (ActionList.Count < 5)
             {
                 ActionList.Add(action);
-                PlayerState.DisplayCommands(action);
-                _gameManager.CmdPlayerReady(Id);
+
+                if (isLocalPlayer)
+                {
+                    PlayerState.DisplayCommands(action);
+                }
+
+                CmdSetPlayerReady();
+
+                Debug.Log(Id + " ready!");
             }
+        }
+
+        [Command]
+        public void CmdSetPlayerReady()
+        {
+            if (_gameManager == null)
+            {
+                _gameManager = FindObjectOfType<GameManager>();
+            }
+
+            _gameManager.ServerPlayerReady(Id);
+
+            Debug.Log(Id + " ready!");
         }
 
         [Command]
@@ -216,8 +175,18 @@ namespace Assets.Scripts
             Destroy(bullet, 2.0f);
         }
 
+        
         public void ResolveCommands()
         {
+            RpcResolveCommands();
+        }
+
+        [ClientRpc]
+        public void RpcResolveCommands()
+        {
+            if(!isLocalPlayer)
+                return;
+
             for (var i = 0; i < ActionList.Count; i++)
             {
                 if (ActionList[i] == Enumerations.Action.Shoot) CmdFire();
@@ -225,6 +194,14 @@ namespace Assets.Scripts
             }
             ActionList.Clear();
         }
+
+        //[Command]
+        //public void CmdDoSomething()
+        //{
+        //    _gameManager.
+        //}
+
+
     }
 }
 

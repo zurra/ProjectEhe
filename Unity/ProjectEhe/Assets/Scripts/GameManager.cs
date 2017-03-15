@@ -15,15 +15,6 @@ namespace Scripts
         private List<int> players;
         public int AmountOfPlayers;
 
-        public struct PlayerAction
-        {
-            public int Id;
-            public Enumerations.Action Action;
-        }
-
-        public class PlayerActions : SyncListStruct<PlayerAction> {}
-        PlayerActions m_actions = new PlayerActions();
-
         //public Dictionary<int, List<Enumerations.Action>> PlayerActions = new Dictionary<int, List<Enumerations.Action>>();
 
         public NetworkManagerCustom NetworkManager;
@@ -37,14 +28,9 @@ namespace Scripts
 
         void Awake()
         {
-           NetworkManager.PlayerAdded += NetworkManagerOnPlayerAdded;
-            m_actions.Callback += OnPlayerActionChanged;
+            NetworkManager = FindObjectOfType<NetworkManagerCustom>();
+            NetworkManager.PlayerAdded += NetworkManagerOnPlayerAdded;
             players = new List<int>();
-        }
-
-        private void OnPlayerActionChanged(SyncList<PlayerAction>.Operation op, int itemIndex)
-        {
-            Debug.Log("Player action changed: " + op);
         }
 
         void Update()
@@ -54,7 +40,7 @@ namespace Scripts
                 turnTimeLeft -= Time.deltaTime;
                 if (turnTimeLeft < 0)
                 {
-                    DoNextTurnAction();
+                    //DoNextTurnAction();
                     ResetTimer();
                     turnTimeLeft = 0;
                 }
@@ -68,8 +54,35 @@ namespace Scripts
 
         private void NetworkManagerOnPlayerAdded(int hostId)
         {
-            Debug.Log("HostId: " + hostId);
+            //Debug.Log("HostId: " + hostId);
 
+            //if (PlayerMovements.All(item => item.connectionToClient.hostId != hostId))
+            //{
+            //    var playerMovements = GameObject.FindObjectsOfType<PlayerMovement>();
+
+            //    foreach (var playerMovement in playerMovements)
+            //    {
+            //        Debug.Log("PlayerMovement hostId: " + playerMovement.connectionToClient.hostId);
+            //    }
+
+            //    if (playerMovements.Any(item => item.connectionToClient.hostId == hostId))
+            //    {
+            //        var plrMovement = playerMovements.First(item => item.connectionToClient.hostId == hostId);
+            //        PlayerMovements.Add(plrMovement);
+            //        playerMovements.First(item => item.connectionToClient.hostId == hostId).Id =
+            //            plrMovement.connectionToClient.hostId;
+            //        //plrMovement.PlayerActionGiven += PlayerActionGiven;
+            //        //PlayerActions.Add(plrMovement.Id, new List<Enumerations.Action>());
+
+            //    }
+            //}
+
+            //if (PlayerMovements.Count == 2)
+            //    StartCoroutine(WaitAndStartGame());
+        }
+
+        public void SetPlayerIds(int hostId)
+        {
             if (PlayerMovements.All(item => item.connectionToClient.hostId != hostId))
             {
                 var playerMovements = GameObject.FindObjectsOfType<PlayerMovement>();
@@ -98,54 +111,18 @@ namespace Scripts
         IEnumerator WaitAndStartGame()
         {
             Debug.Log("Waiting and starting the game");
-            yield return new  WaitForSeconds(3F);
+            yield return new  WaitForSeconds(1F);
 
             Debug.Log("Starting the game...");
 
             StartGame();
         }
 
-        public void PlayerActionGiven(int hostId, Enumerations.Action action)
-        {
-            Debug.Log("Player action given : " + hostId + " " + action);
-
-            //foreach (var thing in PlayerActions)
-            //{
-            //    Debug.Log(thing.Key);
-            //}
-
-            //if (PlayerActions[hostId].Count < MaxActionAmount)
-            //{
-            //    PlayerActions[hostId].Add(action);
-            //}
-
-            //if (PlayerActions.All(item => item.Value.Count == 5))
-            //{
-            //    StartTurnExecuting();
-            //}
-
-            foreach (var thing in m_actions)
-            {
-                Debug.Log(thing.Id + " " + thing.Action);
-            }
-
-            if (m_actions.Count(item => item.Id == hostId) < MaxActionAmount)
-            {
-                m_actions.Add(new PlayerAction() { Action = action, Id = hostId});
-            }
-
-            //if (PlayerActions.All(item => item.Value.Count == 5))
-            //{
-            //    StartTurnExecuting();
-            //}
-        }
-
         void StartGame()
         {
-            foreach (var playerMovement in PlayerMovements)
-            {
-                playerMovement.AskForInput();
-            }
+            PlayerMovements = FindObjectsOfType<PlayerMovement>().ToList();
+
+            Debug.Log("Game started!");
         }
 
         public void StartTurnExecuting()
@@ -154,21 +131,11 @@ namespace Scripts
             turnTimeLeft = TurnInterval;
         }
 
-        private void DoNextTurnAction()
+        [Server]
+        public void ServerPlayerReady(int id)
         {
-            //foreach (var hostId in PlayerActions.Keys)
-            //{
-            //    if (PlayerActions[hostId].Any())
-            //    {
-            //        PlayerMovements.First(item => item.Id == hostId).DoAction(PlayerActions[hostId].First());
-            //        PlayerActions[hostId].RemoveAt(0);
-            //    }
-            //}
-        }
+            PlayerMovements = FindObjectsOfType<PlayerMovement>().ToList();
 
-        [Command]
-        public void CmdPlayerReady(int id)
-        {
             players.Add(id);
             if (players.Count >= PlayerMovements.Count)
             {
@@ -180,5 +147,7 @@ namespace Scripts
                 players.Clear();
             }
         }
+
+     
     }
 }

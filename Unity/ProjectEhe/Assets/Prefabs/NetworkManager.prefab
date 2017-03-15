@@ -69,6 +69,7 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1384472095323550, guid: effc385734a1c9a4c9c37adee444a37f, type: 2}
+  - {fileID: 1933270211345214, guid: c324d49fc3222e8458c21eb1ce87738c, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -111,6 +112,8 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
+  GameManagerPrefab: {fileID: 1933270211345214, guid: c324d49fc3222e8458c21eb1ce87738c,
+    type: 2}
 --- !u!114 &114874343986508278
 MonoBehaviour:
   m_ObjectHideFlags: 1
