@@ -105,7 +105,7 @@ namespace Assets.Scripts
                     transform.Translate(Vector3.forward);
                     break;
                 case Enumerations.Action.LongMove:
-                    transform.Translate(Vector3.forward * 2);
+                    transform.Translate(Vector3.forward * 3);
                     break;
                 case Enumerations.Action.Shoot:
                     CmdFire();
@@ -137,8 +137,6 @@ namespace Assets.Scripts
                 }
 
                 CmdSetPlayerReady();
-
-                Debug.Log(Id + " ready!");
             }
         }
 
@@ -193,6 +191,12 @@ namespace Assets.Scripts
                 else if (ActionList[action] != Enumerations.Action.Shoot) DoAction(ActionList[action]);
             //}
             //ActionList.Clear();
+        }
+
+        [ClientRpc]
+        public void RpcClearActionList()
+        {
+            ActionList.Clear();
         }
 
         //[Command]

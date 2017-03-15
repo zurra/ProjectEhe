@@ -156,7 +156,8 @@ namespace Scripts
             players.Clear();
             foreach(var player in PlayerMovements)
             {
-                player.ActionList.Clear();
+                player.RpcClearActionList();
+
             }
         }
      
