@@ -32,12 +32,14 @@ namespace Assets.Scripts
             ActionList = new List<Enumerations.Action>();
             player = ReInput.players.GetPlayer(rewiredPlayerId);
             _gameManager = FindObjectOfType<GameManager>();
+            PlayerState = GetComponent<PlayerState>();
         }
 
         public override void OnStartLocalPlayer()
         {
+            Debug.Log("On Start Local Player");
+
             GetComponent<MeshRenderer>().material.color = Color.black;
-            PlayerState = GetComponent<PlayerState>();          
         }
 
         void Update()
