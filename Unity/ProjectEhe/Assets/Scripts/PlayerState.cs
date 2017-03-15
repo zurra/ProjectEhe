@@ -1,6 +1,7 @@
 ﻿using UnityEngine.Networking;
 using UnityEngine;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
@@ -8,32 +9,45 @@ namespace Assets.Scripts
     {
         public const int maxHealth = 10;
         public UIManager UIManager;
+        public List<Enumerations.Action> ActionList;
         
-        [SyncVar]
-        private int health;
+        [SyncVar (hook = "OnHealthChanged")]
+        public int Health;
 
-        public int Health {
-            get { return health; }
-            set { if(health != value) {
-                    health = value;
-                    if (isLocalPlayer)
-                    {
-                        Debug.Log("Health lost!");
-                        OnPropertyChanged("Health");
-                    }
-                }
-            } }
+        //public int Health {
+        //    get { return health; }
+        //    set { if(health != value) {
+        //            health = value;
+        //            if (isLocalPlayer)
+        //            {
+        //                OnPropertyChanged("Health");
+        //            }
+        //            else if (!isLocalPlayer)
+        //            {
+        //                OnPropertyChanged("OppHealth");
+        //            }
+        //        }
+        //    } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Start()
         {
-            Health = maxHealth;
+            //UIManager = FindObjectOfType<UIManager>();
+            //if (isLocalPlayer)
+            //{
+            //    UIManager.SetPlayerState(GetComponent<PlayerState>());
             UIManager = FindObjectOfType<UIManager>();
-            if (isLocalPlayer)
-            {
-                UIManager.SetPlayerState(GetComponent<PlayerState>());
-            }
+            Health = maxHealth;
+            ActionList = new List<Enumerations.Action>();
+            //if (isLocalPlayer)
+            //{
+            //UIManager.SetPlayerState(GetComponent<PlayerState>());
+            //}
+            //else if (!isLocalPlayer)
+            //{
+            //UIManager.SetEnemyPlayerState(GetComponent<PlayerState>());
+            //}
         }
 
         public void TakeDamage(int amount)
@@ -42,12 +56,6 @@ namespace Assets.Scripts
                 return;
 
             Health -= amount;
-            if (Health <= 0)
-            {
-                Health = maxHealth;
-                Debug.Log("Dead!");
-                RpcRespawn();
-            }
         }
 
         [ClientRpc]
@@ -57,6 +65,41 @@ namespace Assets.Scripts
             {
                 transform.position = Vector3.zero;
             }
+        }
+
+        public void OnHealthChanged(int health)
+        {
+            if (isLocalPlayer)
+            {
+                UIManager.ChangeHealthText(health);
+                //OnPropertyChanged("Health");
+            }
+            else if (!isLocalPlayer)
+            {
+                UIManager.ChangeOppText(health);
+                //OnPropertyChanged("OppHealth");
+            }
+
+            if (health <= 0)
+            {
+                Health = maxHealth;
+                if (isLocalPlayer)
+                {
+                    UIManager.Lose();
+                    //OnPropertyChanged("YouDead");
+                }
+                else if (!isLocalPlayer)
+                {
+                    UIManager.Win();
+                    //OnPropertyChanged("YouWin");
+                }
+                RpcRespawn();
+            }
+        }
+
+        public void DisplayCommands(Enumerations.Action action)
+        {
+            UIManager.ChangeCommandText(action);
         }
 
         protected void OnPropertyChanged(string name)
