@@ -10,11 +10,13 @@ namespace Assets.Scripts
 {
     public class PlayerMovement : NetworkBehaviour
     {
-        public GameObject bulletPrefab;
+        public GameObject LaserPrefab;
         public Player player;
         public PlayerState PlayerState;
         public List<Enumerations.Action> ActionList;
         public int Id;
+        public GameObject LaserBase;
+
 
         public int rewiredPlayerId = 0;
 
@@ -35,7 +37,6 @@ namespace Assets.Scripts
             _gameManager = FindObjectOfType<GameManager>();
             _animator = gameObject.GetComponent<Animator>();
             PlayerState = GetComponent<PlayerState>();
-
         }
 
         public override void OnStartLocalPlayer()
@@ -168,20 +169,13 @@ namespace Assets.Scripts
             _animator.SetTrigger("Fire");
 
             // This [Command] code is run on the server!
+            var laser = Instantiate(
+                LaserPrefab,
+                LaserBase.transform.position,
+                transform.rotation);
+            NetworkServer.Spawn(laser);
 
-            // create the bullet object locally
-            var bullet = Instantiate(
-                 bulletPrefab,
-                 transform.position + transform.forward,
-                 Quaternion.identity);
-
-            bullet.GetComponent<Rigidbody>().velocity = transform.forward * 40;
-
-            // spawn the bullet on the clients
-            NetworkServer.Spawn(bullet);
-
-            // when the bullet is destroyed on the server it will automaticaly be destroyed on clients
-            Destroy(bullet, 2.0f);
+            Destroy(laser, 0.45f);
         }
 
         
@@ -198,8 +192,11 @@ namespace Assets.Scripts
 
             //for (var i = 0; i < ActionList.Count; i++)
             //{
-                if (ActionList[action] == Enumerations.Action.Shoot) CmdFire();
-                else if (ActionList[action] != Enumerations.Action.Shoot) DoAction(ActionList[action]);
+            if (ActionList[action] == Enumerations.Action.Shoot)
+            {
+                CmdFire();
+            }
+            else if (ActionList[action] != Enumerations.Action.Shoot) DoAction(ActionList[action]);
             //}
             //ActionList.Clear();
         }

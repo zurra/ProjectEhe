@@ -14,40 +14,13 @@ namespace Assets.Scripts
         [SyncVar (hook = "OnHealthChanged")]
         public int Health;
 
-        //public int Health {
-        //    get { return health; }
-        //    set { if(health != value) {
-        //            health = value;
-        //            if (isLocalPlayer)
-        //            {
-        //                OnPropertyChanged("Health");
-        //            }
-        //            else if (!isLocalPlayer)
-        //            {
-        //                OnPropertyChanged("OppHealth");
-        //            }
-        //        }
-        //    } }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Start()
         {
-            //UIManager = FindObjectOfType<UIManager>();
-            //if (isLocalPlayer)
-            //{
-            //    UIManager.SetPlayerState(GetComponent<PlayerState>());
             UIManager = FindObjectOfType<UIManager>();
             Health = maxHealth;
             ActionList = new List<Enumerations.Action>();
-            //if (isLocalPlayer)
-            //{
-            //UIManager.SetPlayerState(GetComponent<PlayerState>());
-            //}
-            //else if (!isLocalPlayer)
-            //{
-            //UIManager.SetEnemyPlayerState(GetComponent<PlayerState>());
-            //}
         }
 
         public void TakeDamage(int amount)
@@ -75,12 +48,10 @@ namespace Assets.Scripts
             if (isLocalPlayer)
             {
                 UIManager.ChangeHealthText(health);
-                //OnPropertyChanged("Health");
             }
             else if (!isLocalPlayer)
             {
                 UIManager.ChangeOppText(health);
-                //OnPropertyChanged("OppHealth");
             }
 
             if (health <= 0)
@@ -89,12 +60,10 @@ namespace Assets.Scripts
                 if (isLocalPlayer)
                 {
                     UIManager.Lose();
-                    //OnPropertyChanged("YouDead");
                 }
                 else if (!isLocalPlayer)
                 {
                     UIManager.Win();
-                    //OnPropertyChanged("YouWin");
                 }
                 RpcRespawn();
             }
@@ -105,13 +74,10 @@ namespace Assets.Scripts
             UIManager.ChangeCommandText(action);
         }
 
-        protected void OnPropertyChanged(string name)
+        public void HitByRay()
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            TakeDamage(1);
         }
+
     }
 }
