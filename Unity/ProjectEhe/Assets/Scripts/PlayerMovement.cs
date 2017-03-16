@@ -28,6 +28,7 @@ namespace Assets.Scripts
         //public PlayerActionEventHandler PlayerActionGiven;
 
         private GameManager _gameManager;
+        private Animator _animator;
 
         void Awake()
         {
@@ -37,6 +38,7 @@ namespace Assets.Scripts
             _gameManager = FindObjectOfType<GameManager>();
             PlayerState = GetComponent<PlayerState>();
             PlayerGreen.SetActive(true); 
+            _animator = gameObject.GetComponent<Animator>();
         }
 
         public override void OnStartLocalPlayer()
@@ -95,19 +97,26 @@ namespace Assets.Scripts
             switch (action)
             {
                 case Enumerations.Action.TurnRight:
-                    transform.RotateAround(transform.position, transform.up, 90);
+                    //_animator.SetTrigger("Turn");
+                    //transform.RotateAround(transform.position, transform.up, 90);
+                    _animator.SetInteger("TurnIndex", 3);
+                    _animator.SetTrigger("Turn");
                     break;
                 case Enumerations.Action.TurnLeft:
-                    transform.RotateAround(transform.position, transform.up, -90);
+                    //transform.RotateAround(transform.position, transform.up, -90);
+                    _animator.SetInteger("TurnIndex", 0);
+                    _animator.SetTrigger("Turn");
                     break;
                 case Enumerations.Action.Reverse:
                     transform.Translate(-Vector3.forward);
                     break;
                 case Enumerations.Action.ShortMove:
-                    transform.Translate(Vector3.forward);
+                    //transform.Translate(Vector3.forward);
+                    _animator.SetTrigger("WalkForward");
                     break;
                 case Enumerations.Action.LongMove:
-                    transform.Translate(Vector3.forward * 3);
+                    //transform.Translate(Vector3.forward * 3);
+                    _animator.SetTrigger("SprintForward");
                     break;
                 case Enumerations.Action.Shoot:
                     CmdFire();
@@ -158,6 +167,10 @@ namespace Assets.Scripts
         [Command]
         void CmdFire()
         {
+            _animator.SetTrigger("EnableAim");
+            _animator.SetTrigger("Fire");
+
+            // This [Command] code is run on the server!
             var laser = Instantiate(
                 LaserPrefab,
                 transform.position + transform.forward,

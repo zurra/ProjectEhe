@@ -151,7 +151,7 @@ namespace Scripts
                 {
                     PlayerMovements[i].ResolveCommands(j);
                 }
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(3f);
             }
             players.Clear();
             foreach(var player in PlayerMovements)
