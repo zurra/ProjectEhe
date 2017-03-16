@@ -2005,7 +2005,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1541794888948706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4841078384422606}
@@ -2285,7 +2285,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 8a3b4ce41b752ad42ae0833a20d50693, type: 2}
   - {fileID: 2100000, guid: 17b9bb56c32597b4b8a969ace0373b22, type: 2}
-  - {fileID: 2100000, guid: 5a312f8dd3ecf034e906eb30887bec1c, type: 2}
+  - {fileID: 2100000, guid: 31117bbbf4ba5164a9edd3618e5ed9e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2438,7 +2438,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2144174475
+  randomSeed: 617459068
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5063,7 +5063,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -898075215
+  randomSeed: 1624347145
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7748,7 +7748,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2105667857
+  randomSeed: -1948851594
   InitialModule:
     serializedVersion: 3
     enabled: 1
