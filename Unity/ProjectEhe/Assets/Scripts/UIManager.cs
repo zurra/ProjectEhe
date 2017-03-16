@@ -18,6 +18,8 @@ namespace Assets.Scripts
         public Text Input5;
         private int commandLine;
 
+        private Color _originalColor;
+
         public void Start()
         {
             commandLine = 1;
@@ -27,6 +29,7 @@ namespace Assets.Scripts
             Input4.enabled = false;
             Input5.enabled = false;
             WinLose.enabled = false;
+            _originalColor = Input1.transform.parent.GetComponent<Image>().color;
         }
 
         public void Win()
@@ -81,6 +84,49 @@ namespace Assets.Scripts
                     commandLine = 1;
                     break;
             }        
+        }
+
+        public void ClearCommands()
+        {
+            Input1.text = string.Empty;
+            Input2.text = string.Empty;
+            Input3.text = string.Empty;
+            Input4.text = string.Empty;
+            Input5.text = string.Empty;
+        }
+
+        public void DisplayActiveCommand(int i)
+        {
+            if (i == 0)
+            {
+                Input1.transform.parent.GetComponent<Image>().color = Color.white;
+
+                SetOriginalTextParentBackgroundColor(Input2);
+                SetOriginalTextParentBackgroundColor(Input3);
+                SetOriginalTextParentBackgroundColor(Input4);
+                SetOriginalTextParentBackgroundColor(Input5);
+            }
+            else if (i == 1)
+            {
+                Input2.transform.parent.GetComponent<Image>().color = Color.white;
+            }
+            else if (i == 2)
+            {
+                Input3.transform.parent.GetComponent<Image>().color = Color.white;
+            }
+            else if (i == 3)
+            {
+                Input4.transform.parent.GetComponent<Image>().color = Color.white;
+            }
+            else if (i == 4)
+            {
+                Input5.transform.parent.GetComponent<Image>().color = Color.white;
+            }
+        }
+
+        void SetOriginalTextParentBackgroundColor(Text txt)
+        {
+            txt.transform.parent.GetComponent<Image>().color = _originalColor;
         }
     }
 }

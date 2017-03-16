@@ -69,6 +69,16 @@ namespace Assets.Scripts
             }
         }
 
+        public void EmptyCommands()
+        {
+            UIManager.ClearCommands();
+        }
+
+        public void DisplayActiveCommand(int i)
+        {
+            UIManager.DisplayActiveCommand(i);
+        }
+
         public void DisplayCommands(Enumerations.Action action)
         {
             UIManager.ChangeCommandText(action);

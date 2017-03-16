@@ -199,12 +199,15 @@ namespace Assets.Scripts
             else if (ActionList[action] != Enumerations.Action.Shoot) DoAction(ActionList[action]);
             //}
             //ActionList.Clear();
+
+           // PlayerState.DisplayActiveCommand();
         }
 
         [ClientRpc]
         public void RpcClearActionList()
         {
             ActionList.Clear();
+            PlayerState.EmptyCommands();
         }
 
         //[Command]
