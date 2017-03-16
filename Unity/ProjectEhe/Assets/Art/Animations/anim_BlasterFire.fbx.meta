@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c3218e4f4c01c7b49bf45720e6f89e2f
-timeCreated: 1489481005
+guid: 406b0fa3cb54b6344a5a7a9c4227dc98
+timeCreated: 1489663137
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -8,150 +8,148 @@ ModelImporter:
     100000: //RootNode
     100002: ball_l
     100004: ball_r
-    100006: Bone
-    100008: calf_l
-    100010: calf_r
-    100012: calf_twist_01_l
-    100014: calf_twist_01_r
-    100016: clavicle_l
-    100018: clavicle_r
-    100020: foot_l
-    100022: foot_r
-    100024: hand_l
-    100026: hand_r
-    100028: head
-    100030: ik_foot_l
-    100032: ik_foot_r
-    100034: ik_foot_root
-    100036: ik_hand_gun
-    100038: ik_hand_l
-    100040: ik_hand_r
-    100042: ik_hand_root
-    100044: index_01_l
-    100046: index_01_r
-    100048: index_02_l
-    100050: index_02_r
-    100052: index_03_l
-    100054: index_03_r
-    100056: lowerarm_l
-    100058: lowerarm_r
-    100060: lowerarm_twist_01_l
-    100062: lowerarm_twist_01_r
-    100064: middle_01_l
-    100066: middle_01_r
-    100068: middle_02_l
-    100070: middle_02_r
-    100072: middle_03_l
-    100074: middle_03_r
-    100076: neck_01
-    100078: pelvis
-    100080: pinky_01_l
-    100082: pinky_01_r
-    100084: pinky_02_l
-    100086: pinky_02_r
-    100088: pinky_03_l
-    100090: pinky_03_r
-    100092: ring_01_l
-    100094: ring_01_r
-    100096: ring_02_l
-    100098: ring_02_r
-    100100: ring_03_l
-    100102: ring_03_r
-    100104: root
-    100106: spine_01
-    100108: spine_02
-    100110: spine_03
-    100112: thigh_l
-    100114: thigh_r
-    100116: thigh_twist_01_l
-    100118: thigh_twist_01_r
-    100120: thumb_01_l
-    100122: thumb_01_r
-    100124: thumb_02_l
-    100126: thumb_02_r
-    100128: thumb_03_l
-    100130: thumb_03_r
-    100132: upperarm_l
-    100134: upperarm_r
-    100136: upperarm_twist_01_l
-    100138: upperarm_twist_01_r
-    100140: HeroTPP
-    100142: HeroTPP_MESH
+    100006: calf_l
+    100008: calf_r
+    100010: calf_twist_01_l
+    100012: calf_twist_01_r
+    100014: clavicle_l
+    100016: clavicle_r
+    100018: foot_l
+    100020: foot_r
+    100022: hand_l
+    100024: hand_r
+    100026: head
+    100028: HeroTPP
+    100030: HeroTPP_MESH
+    100032: ik_foot_l
+    100034: ik_foot_r
+    100036: ik_foot_root
+    100038: ik_hand_gun
+    100040: ik_hand_l
+    100042: ik_hand_r
+    100044: ik_hand_root
+    100046: index_01_l
+    100048: index_01_r
+    100050: index_02_l
+    100052: index_02_r
+    100054: index_03_l
+    100056: index_03_r
+    100058: lowerarm_l
+    100060: lowerarm_r
+    100062: lowerarm_twist_01_l
+    100064: lowerarm_twist_01_r
+    100066: middle_01_l
+    100068: middle_01_r
+    100070: middle_02_l
+    100072: middle_02_r
+    100074: middle_03_l
+    100076: middle_03_r
+    100078: neck_01
+    100080: pelvis
+    100082: pinky_01_l
+    100084: pinky_01_r
+    100086: pinky_02_l
+    100088: pinky_02_r
+    100090: pinky_03_l
+    100092: pinky_03_r
+    100094: ring_01_l
+    100096: ring_01_r
+    100098: ring_02_l
+    100100: ring_02_r
+    100102: ring_03_l
+    100104: ring_03_r
+    100106: root
+    100108: spine_01
+    100110: spine_02
+    100112: spine_03
+    100114: thigh_l
+    100116: thigh_r
+    100118: thigh_twist_01_l
+    100120: thigh_twist_01_r
+    100122: thumb_01_l
+    100124: thumb_01_r
+    100126: thumb_02_l
+    100128: thumb_02_r
+    100130: thumb_03_l
+    100132: thumb_03_r
+    100134: upperarm_l
+    100136: upperarm_r
+    100138: upperarm_twist_01_l
+    100140: upperarm_twist_01_r
     400000: //RootNode
     400002: ball_l
     400004: ball_r
-    400006: Bone
-    400008: calf_l
-    400010: calf_r
-    400012: calf_twist_01_l
-    400014: calf_twist_01_r
-    400016: clavicle_l
-    400018: clavicle_r
-    400020: foot_l
-    400022: foot_r
-    400024: hand_l
-    400026: hand_r
-    400028: head
-    400030: ik_foot_l
-    400032: ik_foot_r
-    400034: ik_foot_root
-    400036: ik_hand_gun
-    400038: ik_hand_l
-    400040: ik_hand_r
-    400042: ik_hand_root
-    400044: index_01_l
-    400046: index_01_r
-    400048: index_02_l
-    400050: index_02_r
-    400052: index_03_l
-    400054: index_03_r
-    400056: lowerarm_l
-    400058: lowerarm_r
-    400060: lowerarm_twist_01_l
-    400062: lowerarm_twist_01_r
-    400064: middle_01_l
-    400066: middle_01_r
-    400068: middle_02_l
-    400070: middle_02_r
-    400072: middle_03_l
-    400074: middle_03_r
-    400076: neck_01
-    400078: pelvis
-    400080: pinky_01_l
-    400082: pinky_01_r
-    400084: pinky_02_l
-    400086: pinky_02_r
-    400088: pinky_03_l
-    400090: pinky_03_r
-    400092: ring_01_l
-    400094: ring_01_r
-    400096: ring_02_l
-    400098: ring_02_r
-    400100: ring_03_l
-    400102: ring_03_r
-    400104: root
-    400106: spine_01
-    400108: spine_02
-    400110: spine_03
-    400112: thigh_l
-    400114: thigh_r
-    400116: thigh_twist_01_l
-    400118: thigh_twist_01_r
-    400120: thumb_01_l
-    400122: thumb_01_r
-    400124: thumb_02_l
-    400126: thumb_02_r
-    400128: thumb_03_l
-    400130: thumb_03_r
-    400132: upperarm_l
-    400134: upperarm_r
-    400136: upperarm_twist_01_l
-    400138: upperarm_twist_01_r
-    400140: HeroTPP
-    400142: HeroTPP_MESH
+    400006: calf_l
+    400008: calf_r
+    400010: calf_twist_01_l
+    400012: calf_twist_01_r
+    400014: clavicle_l
+    400016: clavicle_r
+    400018: foot_l
+    400020: foot_r
+    400022: hand_l
+    400024: hand_r
+    400026: head
+    400028: HeroTPP
+    400030: HeroTPP_MESH
+    400032: ik_foot_l
+    400034: ik_foot_r
+    400036: ik_foot_root
+    400038: ik_hand_gun
+    400040: ik_hand_l
+    400042: ik_hand_r
+    400044: ik_hand_root
+    400046: index_01_l
+    400048: index_01_r
+    400050: index_02_l
+    400052: index_02_r
+    400054: index_03_l
+    400056: index_03_r
+    400058: lowerarm_l
+    400060: lowerarm_r
+    400062: lowerarm_twist_01_l
+    400064: lowerarm_twist_01_r
+    400066: middle_01_l
+    400068: middle_01_r
+    400070: middle_02_l
+    400072: middle_02_r
+    400074: middle_03_l
+    400076: middle_03_r
+    400078: neck_01
+    400080: pelvis
+    400082: pinky_01_l
+    400084: pinky_01_r
+    400086: pinky_02_l
+    400088: pinky_02_r
+    400090: pinky_03_l
+    400092: pinky_03_r
+    400094: ring_01_l
+    400096: ring_01_r
+    400098: ring_02_l
+    400100: ring_02_r
+    400102: ring_03_l
+    400104: ring_03_r
+    400106: root
+    400108: spine_01
+    400110: spine_02
+    400112: spine_03
+    400114: thigh_l
+    400116: thigh_r
+    400118: thigh_twist_01_l
+    400120: thigh_twist_01_r
+    400122: thumb_01_l
+    400124: thumb_01_r
+    400126: thumb_02_l
+    400128: thumb_02_r
+    400130: thumb_03_l
+    400132: thumb_03_r
+    400134: upperarm_l
+    400136: upperarm_r
+    400138: upperarm_twist_01_l
+    400140: upperarm_twist_01_r
     4300000: HeroTPP_MESH
-    7400000: mixamo.com
-    7400002: anim_idle
+    7400000: Scene
+    7400002: anim_BlasterFire
     9500000: //RootNode
     13700000: HeroTPP_MESH
   materials:
@@ -176,18 +174,18 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: anim_idle
-      takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 126
+      name: anim_BlasterFire
+      takeName: Scene
+      firstFrame: 1
+      lastFrame: 124
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
