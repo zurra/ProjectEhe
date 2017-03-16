@@ -11,13 +11,14 @@ namespace Assets.Scripts
     public class PlayerMovement : NetworkBehaviour
     {
         public GameObject LaserPrefab;
+        public GameObject PlayerGreen;
+        public GameObject PlayerYellow;
+        public GameObject PlayerBlue;
+        public GameObject PlayerRed;
         public Player player;
         public PlayerState PlayerState;
         public List<Enumerations.Action> ActionList;
         public int Id;
-        public GameObject LaserBase;
-
-
         public int rewiredPlayerId = 0;
 
         //[SyncVar(hook = "OnInputAllowedChanged")]
@@ -34,7 +35,8 @@ namespace Assets.Scripts
             ActionList = new List<Enumerations.Action>();
             player = ReInput.players.GetPlayer(rewiredPlayerId);
             _gameManager = FindObjectOfType<GameManager>();
-            PlayerState = GetComponent<PlayerState>();          
+            PlayerState = GetComponent<PlayerState>();
+            PlayerGreen.SetActive(true); 
         }
 
         public override void OnStartLocalPlayer()
@@ -158,7 +160,7 @@ namespace Assets.Scripts
         {
             var laser = Instantiate(
                 LaserPrefab,
-                LaserBase.transform.position,
+                transform.position + transform.forward,
                 transform.rotation);
             NetworkServer.Spawn(laser);
 
