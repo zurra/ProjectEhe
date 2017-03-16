@@ -6,15 +6,21 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PlayerMaterial
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_Name: RedTeamColorIndicator
+  m_Shader: {fileID: 4800000, guid: 3caf87f769e813a4f960583d5256176a, type: 3}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
+    - first:
+        name: _Albedo
+      second:
+        m_Texture: {fileID: 2800000, guid: 9d0b29cecf2678b41982d2173d3670ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - first:
         name: _BumpMap
       second:
@@ -71,6 +77,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
+        name: _AlbedoPower
+      second: 1
+    - first:
+        name: _Amplitude
+      second: 1
+    - first:
         name: _BumpScale
       second: 1
     - first:
@@ -92,8 +104,11 @@ Material:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _GlowAmount
+      second: 2
+    - first:
         name: _Metallic
-      second: 0
+      second: 1
     - first:
         name: _Mode
       second: 0
@@ -104,10 +119,16 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
+        name: _Smoothness
+      second: 0
+    - first:
         name: _SmoothnessTextureChannel
       second: 0
     - first:
         name: _SpecularHighlights
+      second: 1
+    - first:
+        name: _Speed
       second: 1
     - first:
         name: _SrcBlend
@@ -121,7 +142,13 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0, g: 0.7200005, b: 0, a: 1}
+      second: {r: 0, g: 0.8758622, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0, g: 0, b: 0, a: 1}
+      second: {r: 0, g: 0.751724, b: 1, a: 1}
+    - first:
+        name: _GlowColor
+      second: {r: 1, g: 0.15080346, b: 0, a: 1}
+    - first:
+        name: _MainColor
+      second: {r: 1, g: 0.091, b: 0.053, a: 1}

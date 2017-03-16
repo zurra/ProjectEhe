@@ -40,14 +40,12 @@ namespace Assets.Scripts
         public override void OnStartLocalPlayer()
         {
             Debug.Log("On Start Local Player");
-
-            GetComponent<MeshRenderer>().material.color = Color.black;
         }
 
         void Update()
         {
-            if (!isLocalPlayer) { 
-                GetComponent<MeshRenderer>().material.color = Color.green;
+            if (!isLocalPlayer)
+            {
                 return;
             }
 
