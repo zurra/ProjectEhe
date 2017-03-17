@@ -631,6 +631,9 @@ GameObject:
   - component: {fileID: 114429441218686748}
   - component: {fileID: 114783894042620298}
   - component: {fileID: 114352120001149592}
+  - component: {fileID: 54521653853992788}
+  - component: {fileID: 136450312501990664}
+  - component: {fileID: 114835049793941304}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Untagged
@@ -860,6 +863,21 @@ GameObject:
   - component: {fileID: 4722703521723666}
   m_Layer: 0
   m_Name: ik_foot_root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1779157154049958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4452005309879066}
+  m_Layer: 0
+  m_Name: LaserBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1687,6 +1705,19 @@ Transform:
   m_Father: {fileID: 4406358117003964}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4452005309879066
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1779157154049958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.159, y: 1.122, z: 0.293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4890274012945572}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4481561813223888
 Transform:
   m_ObjectHideFlags: 1
@@ -2039,12 +2070,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1541794888948706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: 15.567171, y: 0.55657196, z: -8.66442}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4074449386854668}
   - {fileID: 4161873695861190}
   - {fileID: 4332949620963524}
+  - {fileID: 4452005309879066}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2201,6 +2233,21 @@ Transform:
   m_Father: {fileID: 4007786690405114}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54521653853992788
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541794888948706}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95703106350906460
 Animator:
   serializedVersion: 3
@@ -2243,10 +2290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94524c72ae878cf43a9960457466fa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1384472095323550, guid: effc385734a1c9a4c9c37adee444a37f,
+  LaserPrefab: {fileID: 1651912282545878, guid: 88412cee44597424cab6db2ce2aabb56,
     type: 2}
+  LaserBase: {fileID: 1779157154049958}
   PlayerState: {fileID: 0}
-  ActionList: 
   Id: 0
   rewiredPlayerId: 0
 --- !u!114 &114618257814467548
@@ -2301,6 +2348,38 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114835049793941304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541794888948706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95703106350906460}
+  m_ParameterSendBits: 127
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
+--- !u!136 &136450312501990664
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541794888948706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.31
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.84, z: 0}
 --- !u!137 &137575020899884220
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

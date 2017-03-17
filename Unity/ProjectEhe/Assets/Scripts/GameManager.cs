@@ -123,7 +123,7 @@ namespace Scripts
                     PlayerMovements[i].RpcResolveCommands(Actions[PlayerMovements[i].Id][j], j);
                     PlayerMovements[i].RpcAnimate(Actions[PlayerMovements[i].Id][j]);
                 }
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(1.5f);
             }
             players.Clear();
             foreach(var player in PlayerMovements)
