@@ -61,8 +61,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1541794888948706, guid: 6e955e4de1c6f88498ec5ce53af1920f,
-    type: 2}
+  m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
   m_OfflineScene: 
@@ -137,4 +136,4 @@ MonoBehaviour:
   manager: {fileID: 0}
   showGUI: 1
   offsetX: 0
-  offsetY: 0
+  offsetY: 311
