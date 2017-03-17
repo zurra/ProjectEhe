@@ -689,6 +689,7 @@ GameObject:
   - component: {fileID: 114352120001149592}
   - component: {fileID: 54819882956053094}
   - component: {fileID: 136507508525997522}
+  - component: {fileID: 114012029964391418}
   m_Layer: 0
   m_Name: Player4
   m_TagString: Untagged
@@ -2233,6 +2234,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114012029964391418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541794888948706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95555718574310738}
+  m_ParameterSendBits: 127
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114352120001149592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2262,7 +2282,6 @@ MonoBehaviour:
     type: 2}
   LaserBase: {fileID: 1674115344348562}
   PlayerState: {fileID: 0}
-  ActionList: 
   Id: 0
   rewiredPlayerId: 0
 --- !u!114 &114595710680673352

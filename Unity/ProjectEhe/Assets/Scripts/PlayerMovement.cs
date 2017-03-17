@@ -227,7 +227,7 @@ namespace Assets.Scripts
         }
 
         [ClientRpc]
-        public void RcpEmptyDisplayCommands()
+        public void RpcEmptyDisplayCommands()
         {
             PlayerState.EmptyCommands();
         }
