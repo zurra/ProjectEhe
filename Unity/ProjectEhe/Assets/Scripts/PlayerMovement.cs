@@ -18,8 +18,7 @@ namespace Assets.Scripts
         //public GameObject PlayerRed;
         public Player player;
         public PlayerState PlayerState;
-        [SyncVar]
-        public int Id;
+        [SyncVar] public int Id = -1;
         public int rewiredPlayerId = 0;
 
         //[SyncVar(hook = "OnInputAllowedChanged")]
