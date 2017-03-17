@@ -10,6 +10,7 @@ namespace Assets.Scripts
         public void Start()
         {
             Line = gameObject.GetComponent<LineRenderer>();
+            Line.enabled = false;
             StartLaser();
         }
 

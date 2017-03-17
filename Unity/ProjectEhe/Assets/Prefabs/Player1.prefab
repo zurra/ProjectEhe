@@ -473,7 +473,6 @@ GameObject:
   - component: {fileID: 4334107330947396}
   - component: {fileID: 198743874478294884}
   - component: {fileID: 199719757322961826}
-  - component: {fileID: 114746254615933198}
   m_Layer: 0
   m_Name: Blaster
   m_TagString: Untagged
@@ -666,6 +665,7 @@ GameObject:
   - component: {fileID: 95893389167214952}
   - component: {fileID: 136048931629145548}
   - component: {fileID: 114015779696263964}
+  - component: {fileID: 82797073928134112}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -2224,7 +2224,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1541794888948706}
   m_LocalRotation: {x: -0, y: 0.7933532, z: -0, w: 0.6087617}
-  m_LocalPosition: {x: 2.93, y: 0, z: 0}
+  m_LocalPosition: {x: -7.4768953, y: -0.8293093, z: 4.30525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4841078384422606}
@@ -2405,6 +2405,86 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &82797073928134112
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541794888948706}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 05ae69161b80c134ba46d25904693fbd, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95893389167214952
 Animator:
   serializedVersion: 3
@@ -2470,8 +2550,13 @@ MonoBehaviour:
     type: 2}
   LaserBase: {fileID: 1130266096251970}
   PlayerState: {fileID: 0}
-  Id: 0
+  Id: -1
   rewiredPlayerId: 0
+  Blaster: {fileID: 198743874478294884}
+  Lasers:
+  - {fileID: 8300000, guid: 05ae69161b80c134ba46d25904693fbd, type: 3}
+  - {fileID: 8300000, guid: 38aa1b906dcd4d8438e15527abc28a0d, type: 3}
+  source: {fileID: 82797073928134112}
 --- !u!114 &114455061313064386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2524,17 +2609,6 @@ MonoBehaviour:
     i15: 227
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114746254615933198
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1309315514704724}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8e596ad245f3345b65e5bc5dae8181, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &136048931629145548
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2716,7 +2790,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1968220231
+  randomSeed: -1225123049
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5521,7 +5595,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -647426990
+  randomSeed: 2017932136
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10831,7 +10905,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1148854334
+  randomSeed: -1806892868
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -16141,7 +16215,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -833762374
+  randomSeed: 1707135268
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -18796,7 +18870,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -706695860
+  randomSeed: -707742435
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21445,7 +21519,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1338739729
+  randomSeed: 1843006574
   InitialModule:
     serializedVersion: 3
     enabled: 1
