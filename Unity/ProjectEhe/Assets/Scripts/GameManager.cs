@@ -11,11 +11,10 @@ namespace Scripts
     public class GameManager : NetworkBehaviour
     {
         public List<PlayerMovement> PlayerMovements = new List<PlayerMovement>();
+        public Dictionary<int, List<Enumerations.Action>> Actions = new Dictionary<int, List<Enumerations.Action>>();
 
         private List<int> players;
         public int AmountOfPlayers;
-
-        //public Dictionary<int, List<Enumerations.Action>> PlayerActions = new Dictionary<int, List<Enumerations.Action>>();
 
         public NetworkManagerCustom NetworkManager;
 
@@ -29,7 +28,6 @@ namespace Scripts
         void Awake()
         {
             NetworkManager = FindObjectOfType<NetworkManagerCustom>();
-            NetworkManager.PlayerAdded += NetworkManagerOnPlayerAdded;
             players = new List<int>();
         }
 
@@ -52,36 +50,7 @@ namespace Scripts
             turnTimeLeft = TurnInterval;
         }
 
-        private void NetworkManagerOnPlayerAdded(int hostId)
-        {
-            //Debug.Log("HostId: " + hostId);
-
-            //if (PlayerMovements.All(item => item.connectionToClient.hostId != hostId))
-            //{
-            //    var playerMovements = GameObject.FindObjectsOfType<PlayerMovement>();
-
-            //    foreach (var playerMovement in playerMovements)
-            //    {
-            //        Debug.Log("PlayerMovement hostId: " + playerMovement.connectionToClient.hostId);
-            //    }
-
-            //    if (playerMovements.Any(item => item.connectionToClient.hostId == hostId))
-            //    {
-            //        var plrMovement = playerMovements.First(item => item.connectionToClient.hostId == hostId);
-            //        PlayerMovements.Add(plrMovement);
-            //        playerMovements.First(item => item.connectionToClient.hostId == hostId).Id =
-            //            plrMovement.connectionToClient.hostId;
-            //        //plrMovement.PlayerActionGiven += PlayerActionGiven;
-            //        //PlayerActions.Add(plrMovement.Id, new List<Enumerations.Action>());
-
-            //    }
-            //}
-
-            //if (PlayerMovements.Count == 2)
-            //    StartCoroutine(WaitAndStartGame());
-        }
-
-        public void SetPlayerIds(int hostId)
+        public void SetPlayerIds(int hostId, int otherId)
         {
             if (PlayerMovements.All(item => item.connectionToClient.hostId != hostId))
             {
@@ -97,9 +66,11 @@ namespace Scripts
                     var plrMovement = playerMovements.First(item => item.connectionToClient.hostId == hostId);
                     PlayerMovements.Add(plrMovement);
                     playerMovements.First(item => item.connectionToClient.hostId == hostId).Id =
-                        plrMovement.connectionToClient.hostId;
+                        otherId;
                     //plrMovement.PlayerActionGiven += PlayerActionGiven;
                     //PlayerActions.Add(plrMovement.Id, new List<Enumerations.Action>());
+
+                    Actions.Add(plrMovement.Id, new List<Enumerations.Action>());
 
                 }
             }
@@ -149,16 +120,35 @@ namespace Scripts
             {
                 for (int i = 0; i < players.Count; i++)
                 {
-                    PlayerMovements[i].ResolveCommands(j);
+                    PlayerMovements[i].RpcResolveCommands(Actions[PlayerMovements[i].Id][j]);
+                    PlayerMovements[i].RpcAnimate(Actions[PlayerMovements[i].Id][j]);
                 }
                 yield return new WaitForSeconds(3f);
             }
             players.Clear();
             foreach(var player in PlayerMovements)
             {
-                player.RpcClearActionList();
+                Actions[player.Id].Clear();
+                player.RcpEmptyDisplayCommands();
 
             }
+        }
+
+        [Server]
+        public void ServerAddActionToList(PlayerMovement playerMovement, Enumerations.Action action)
+        {
+            if (Actions[playerMovement.Id].Count < 4)
+            {
+                Actions[playerMovement.Id].Add(action);
+            }
+            else if (Actions[playerMovement.Id].Count < 5)
+            {
+                Actions[playerMovement.Id].Add(action);
+
+                ServerPlayerReady(playerMovement.Id);
+            }
+
+            playerMovement.RpcDisplayCommand(action);
         }
      
     }

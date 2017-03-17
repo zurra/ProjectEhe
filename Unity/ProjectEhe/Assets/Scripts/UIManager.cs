@@ -109,18 +109,38 @@ namespace Assets.Scripts
             else if (i == 1)
             {
                 Input2.transform.parent.GetComponent<Image>().color = Color.white;
+
+                SetOriginalTextParentBackgroundColor(Input1);
+                SetOriginalTextParentBackgroundColor(Input3);
+                SetOriginalTextParentBackgroundColor(Input4);
+                SetOriginalTextParentBackgroundColor(Input5);
             }
             else if (i == 2)
             {
                 Input3.transform.parent.GetComponent<Image>().color = Color.white;
+
+                SetOriginalTextParentBackgroundColor(Input1);
+                SetOriginalTextParentBackgroundColor(Input2);
+                SetOriginalTextParentBackgroundColor(Input4);
+                SetOriginalTextParentBackgroundColor(Input5);
             }
             else if (i == 3)
             {
                 Input4.transform.parent.GetComponent<Image>().color = Color.white;
+
+                SetOriginalTextParentBackgroundColor(Input1);
+                SetOriginalTextParentBackgroundColor(Input2);
+                SetOriginalTextParentBackgroundColor(Input3);
+                SetOriginalTextParentBackgroundColor(Input5);
             }
             else if (i == 4)
             {
                 Input5.transform.parent.GetComponent<Image>().color = Color.white;
+
+                SetOriginalTextParentBackgroundColor(Input1);
+                SetOriginalTextParentBackgroundColor(Input2);
+                SetOriginalTextParentBackgroundColor(Input3);
+                SetOriginalTextParentBackgroundColor(Input4);
             }
         }
 

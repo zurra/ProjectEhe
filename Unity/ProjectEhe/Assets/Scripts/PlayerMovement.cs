@@ -17,7 +17,7 @@ namespace Assets.Scripts
         public GameObject PlayerRed;
         public Player player;
         public PlayerState PlayerState;
-        public List<Enumerations.Action> ActionList;
+        [SyncVar]
         public int Id;
         public int rewiredPlayerId = 0;
 
@@ -33,11 +33,11 @@ namespace Assets.Scripts
         void Awake()
         {
             // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
-            ActionList = new List<Enumerations.Action>();
+            //ActionList = new SyncListInt();
             player = ReInput.players.GetPlayer(rewiredPlayerId);
             _gameManager = FindObjectOfType<GameManager>();
             PlayerState = GetComponent<PlayerState>();
-            PlayerGreen.SetActive(true); 
+           // PlayerGreen.SetActive(true); 
             _animator = gameObject.GetComponent<Animator>();
         }
 
@@ -61,32 +61,32 @@ namespace Assets.Scripts
             if (player.GetButtonDown("Fire"))
             {
                 //CmdFire();
-                AddActionToList(Enumerations.Action.Shoot);
+                CmdAddActionToList(Enumerations.Action.Shoot);
             }
             else if (player.GetButtonDown("Move Counterclockwise"))
             {
                 //DoAction(Enumerations.Action.TurnLeft);
-                AddActionToList(Enumerations.Action.TurnLeft);
+                CmdAddActionToList(Enumerations.Action.TurnLeft);
             }
             else if (player.GetButtonDown("Move Clockwise"))
             {
                 //DoAction(Enumerations.Action.TurnRight);
-                AddActionToList(Enumerations.Action.TurnRight);
+                CmdAddActionToList(Enumerations.Action.TurnRight);
             }
             else if (player.GetButtonDown("Short Move"))
             {
                 //DoAction(Enumerations.Action.ShortMove);
-                AddActionToList(Enumerations.Action.ShortMove);
+                CmdAddActionToList(Enumerations.Action.ShortMove);
             }
             else if (player.GetButtonDown("Long Move"))
             {
                 //DoAction(Enumerations.Action.LongMove);
-                AddActionToList(Enumerations.Action.LongMove);
+                CmdAddActionToList(Enumerations.Action.LongMove);
             }
             else if (player.GetButtonDown("Reverse"))
             {
                 //DoAction(Enumerations.Action.Reverse);
-                AddActionToList(Enumerations.Action.Reverse);
+                CmdAddActionToList(Enumerations.Action.Reverse);
             }
         }
 
@@ -94,29 +94,27 @@ namespace Assets.Scripts
         {
             Debug.Log("Player " + Id + " Do action " + action);
 
+            //RpcAnimate(action);
+
             switch (action)
             {
                 case Enumerations.Action.TurnRight:
                     //_animator.SetTrigger("Turn");
                     //transform.RotateAround(transform.position, transform.up, 90);
-                    _animator.SetInteger("TurnIndex", 3);
-                    _animator.SetTrigger("Turn");
+                   
                     break;
                 case Enumerations.Action.TurnLeft:
                     //transform.RotateAround(transform.position, transform.up, -90);
-                    _animator.SetInteger("TurnIndex", 0);
-                    _animator.SetTrigger("Turn");
+                    
                     break;
                 case Enumerations.Action.Reverse:
-                    transform.Translate(-Vector3.forward);
+                   
                     break;
                 case Enumerations.Action.ShortMove:
-                    //transform.Translate(Vector3.forward);
-                    _animator.SetTrigger("WalkForward");
+                   
                     break;
                 case Enumerations.Action.LongMove:
-                    //transform.Translate(Vector3.forward * 3);
-                    _animator.SetTrigger("SprintForward");
+                   
                     break;
                 case Enumerations.Action.Shoot:
                     CmdFire();
@@ -126,28 +124,65 @@ namespace Assets.Scripts
             }
         }
 
-        
-        public void AddActionToList(Enumerations.Action action)
+        public void RpcAnimate()
         {
-            if (ActionList.Count < 4)
-            {
-                if (isLocalPlayer)
-                {
-                    PlayerState.DisplayCommands(action);
-                }
+            
+        }
 
-                ActionList.Add(action);
+        [ClientRpc]
+        public void RpcAnimate(Enumerations.Action action)
+        {
+            if(!isLocalPlayer)
+                return;
+
+            switch (action)
+            {
+                case Enumerations.Action.TurnRight:
+                    _animator.SetInteger("TurnIndex", 3);
+                    _animator.SetTrigger("Turn");
+
+                    GetComponent<NetworkAnimator>().SetTrigger("Turn");
+                    break;
+                case Enumerations.Action.TurnLeft:
+                    _animator.SetInteger("TurnIndex", 0);
+                    _animator.SetTrigger("Turn");
+
+                    GetComponent<NetworkAnimator>().SetTrigger("Turn");
+                    break;
+                case Enumerations.Action.Reverse:
+                    transform.Translate(-Vector3.forward);
+                    break;
+                case Enumerations.Action.ShortMove:
+                    //transform.Translate(Vector3.forward);
+                    _animator.SetTrigger("WalkForward");
+                    GetComponent<NetworkAnimator>().SetTrigger("WalkForward");
+                    break;
+                case Enumerations.Action.LongMove:
+                    //transform.Translate(Vector3.forward * 3);
+                    _animator.SetTrigger("SprintForward");
+                    GetComponent<NetworkAnimator>().SetTrigger("SprintForward");
+                    break;
+                case Enumerations.Action.Shoot:
+                    _animator.SetTrigger("Fire");
+                    GetComponent<NetworkAnimator>().SetTrigger("Fire");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("action", action, null);
             }
-            else if (ActionList.Count < 5)
+        }
+
+        [Command]
+        public void CmdAddActionToList(Enumerations.Action action)
+        {
+            _gameManager.ServerAddActionToList(this, action);
+        }
+
+        [ClientRpc]
+        public void RpcDisplayCommand(Enumerations.Action action)
+        {
+            if (isLocalPlayer)
             {
-                ActionList.Add(action);
-
-                if (isLocalPlayer)
-                {
-                    PlayerState.DisplayCommands(action);
-                }
-
-                CmdSetPlayerReady();
+                PlayerState.DisplayCommands(action);
             }
         }
 
@@ -167,9 +202,6 @@ namespace Assets.Scripts
         [Command]
         void CmdFire()
         {
-            _animator.SetTrigger("EnableAim");
-            _animator.SetTrigger("Fire");
-
             // This [Command] code is run on the server!
             var laser = Instantiate(
                 LaserPrefab,
@@ -180,43 +212,24 @@ namespace Assets.Scripts
             Destroy(laser, 0.45f);
         }
 
-        
-        public void ResolveCommands(int action)
-        {
-            RpcResolveCommands(action);
-        }
-
         [ClientRpc]
-        public void RpcResolveCommands(int action)
+        public void RpcResolveCommands(Enumerations.Action action)
         {
             if(!isLocalPlayer)
                 return;
 
-            //for (var i = 0; i < ActionList.Count; i++)
-            //{
-            if (ActionList[action] == Enumerations.Action.Shoot)
+            if (action == (Enumerations.Action.Shoot))
             {
                 CmdFire();
             }
-            else if (ActionList[action] != Enumerations.Action.Shoot) DoAction(ActionList[action]);
-            //}
-            //ActionList.Clear();
-
-           // PlayerState.DisplayActiveCommand();
+            else if (action != Enumerations.Action.Shoot) DoAction(action);
         }
 
         [ClientRpc]
-        public void RpcClearActionList()
+        public void RcpEmptyDisplayCommands()
         {
-            ActionList.Clear();
             PlayerState.EmptyCommands();
         }
-
-        //[Command]
-        //public void CmdDoSomething()
-        //{
-        //    _gameManager.
-        //}
     }
 }
 
