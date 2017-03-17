@@ -47,6 +47,8 @@ public class NetworkManagerCustom : NetworkManager
         //    PlayerAdded(Conn.hostId);
     }
 
+    private int _playerCount = 0;
+
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
         //base.OnServerAddPlayer(conn, playerControllerId);
@@ -84,7 +86,11 @@ public class NetworkManagerCustom : NetworkManager
             _gameManagerInstantiated = true;
         }
 
-        GameObject.FindObjectOfType<GameManager>().SetPlayerIds(conn.hostId);
+        GameObject.FindObjectOfType<GameManager>().SetPlayerIds(conn.hostId, _playerCount);
+
+        _playerCount++;
+
+
 
         if (PlayerAdded != null)
             PlayerAdded(conn.hostId);
