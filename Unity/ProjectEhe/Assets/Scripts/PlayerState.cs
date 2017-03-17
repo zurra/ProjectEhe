@@ -36,7 +36,16 @@ namespace Assets.Scripts
         {
             if (isLocalPlayer)
             {
-                transform.position = Vector3.zero;
+                transform.position = new Vector3(-4, -1, 1.95f);
+            }
+        }
+
+        public void KillPlayer(int id)
+        {
+            if (isServer && gameObject.GetComponent<PlayerMovement>().Id == id)
+            {
+                Debug.Log("Kill player!");
+                Health = 0;
             }
         }
 
@@ -87,6 +96,14 @@ namespace Assets.Scripts
         public void DisplayCommands(Enumerations.Action action)
         {
             UIManager.ChangeCommandText(action);
+        }
+
+        public void DisplayPlayerName(int i)
+        {
+            if(UIManager == null)
+                UIManager = FindObjectOfType<UIManager>();
+
+            UIManager.SetPlayer(i);
         }
 
         public void HitByRay()

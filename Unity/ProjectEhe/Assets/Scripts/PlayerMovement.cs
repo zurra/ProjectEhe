@@ -238,6 +238,15 @@ namespace Assets.Scripts
         {
             PlayerState.EmptyCommands();
         }
+
+        [ClientRpc]
+        public void RpcDisplayPlayer(int i)
+        {
+            if(!isLocalPlayer)
+                return;
+
+            PlayerState.DisplayPlayerName(i);
+        }
     }
 }
 

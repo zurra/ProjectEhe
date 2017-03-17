@@ -43,6 +43,14 @@ namespace Scripts
                     turnTimeLeft = 0;
                 }
             }
+
+            foreach (var playerMovement in PlayerMovements)
+            {
+                if (playerMovement.gameObject.transform.position.y < -20)
+                {
+                    ServerKillPlayer(playerMovement.Id);
+                }
+            }
         }
 
         void ResetTimer()
@@ -60,6 +68,8 @@ namespace Scripts
 
                 PlayerMovements.Add(plrMovement);
                 PlayerMovements.Last().Id = Id;
+                PlayerMovements.Last().RpcDisplayPlayer(Id);
+
                 //plrMovement.PlayerActionGiven += PlayerActionGiven;
                 //PlayerActions.Add(plrMovement.Id, new List<Enumerations.Action>());
 
@@ -122,6 +132,13 @@ namespace Scripts
                 playerMovement.RpcDisplayCommand(action);
             }
         }
-     
+
+        [Server]
+        public void ServerKillPlayer(int id)
+        {
+            PlayerMovements.First(item => item.Id == id).GetComponent<PlayerState>().KillPlayer(id);
+        }
+
+
     }
 }

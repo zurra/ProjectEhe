@@ -6,6 +6,7 @@ namespace Assets.Scripts
 {
     public class UIManager : MonoBehaviour
     {
+        public Text PlayerText;
         public Text HealthText;
         public Text OppHealthText;
         public Text WinLose;
@@ -156,6 +157,30 @@ namespace Assets.Scripts
         void SetOriginalTextParentBackgroundColor(Text txt)
         {
             txt.transform.parent.GetComponent<Image>().color = _originalColor;
+        }
+
+        public void SetPlayer(int i)
+        {
+            if (i == 1)
+            {
+                PlayerText.text = "Player 1";
+                PlayerText.color = Color.green;
+            }
+            else if (i == 2)
+            {
+                PlayerText.text = "Player 2";
+                PlayerText.color = Color.blue;
+            }
+            else if (i == 3)
+            {
+                PlayerText.text = "Player 3";
+                PlayerText.color = Color.red;
+            }
+            else if (i == 4)
+            {
+                PlayerText.text = "Player 4";
+                PlayerText.color = Color.yellow;
+            }
         }
     }
 }
