@@ -21,6 +21,10 @@ namespace Assets.Scripts
         [SyncVar] public int Id = -1;
         public int rewiredPlayerId = 0;
 
+        public ParticleSystem Blaster;
+        public AudioClip[] Lasers;
+        public AudioSource source;
+
         //[SyncVar(hook = "OnInputAllowedChanged")]
         //public bool InputAllowed = true;
 
@@ -39,6 +43,7 @@ namespace Assets.Scripts
             PlayerState = GetComponent<PlayerState>();
             //PlayerGreen.SetActive(true); 
             _animator = GetComponent<Animator>();
+            _animator.speed = 3;
         }
 
         public override void OnStartLocalPlayer()
@@ -124,11 +129,6 @@ namespace Assets.Scripts
             }
         }
 
-        public void RpcAnimate()
-        {
-            
-        }
-
         [ClientRpc]
         public void RpcAnimate(Enumerations.Action action)
         {
@@ -164,11 +164,17 @@ namespace Assets.Scripts
                     break;
                 case Enumerations.Action.Shoot:
                     _animator.SetTrigger("Fire");
-                    GetComponent<NetworkAnimator>().SetTrigger("Fire");
+                    CmdSetNetworkTriggers("Fire");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("action", action, null);
             }
+        }
+
+        [Command]
+        public void CmdSetNetworkTriggers(string trigger)
+        {
+            GetComponent<NetworkAnimator>().SetTrigger(trigger);
         }
 
         [Command]
@@ -202,13 +208,13 @@ namespace Assets.Scripts
         [Command]
         void CmdFire()
         {
+            //FireBlaster();
             // This [Command] code is run on the server!
             var laser = Instantiate(
                 LaserPrefab,
                 LaserBase.transform.position,
                 transform.rotation);
             NetworkServer.Spawn(laser);
-
             Destroy(laser, 0.45f);
         }
 
@@ -242,10 +248,23 @@ namespace Assets.Scripts
         [ClientRpc]
         public void RpcDisplayPlayer(int i)
         {
-            if(!isLocalPlayer)
+            if (!isLocalPlayer)
                 return;
 
             PlayerState.DisplayPlayerName(i);
+        }
+
+        public void FireBlaster()
+        {
+            Blaster.Play();
+        }
+
+        public void PlayBlasterSound()
+        {
+            int r = UnityEngine.Random.Range(0,1);
+            source.clip = Lasers[r];
+            //source.PlayOneShot(Lasers[r]);
+            source.Play();
         }
     }
 }
