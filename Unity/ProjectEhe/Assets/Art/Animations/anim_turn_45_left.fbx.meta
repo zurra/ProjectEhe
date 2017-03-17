@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: ff194cb3d9669924bb77a6b15ff4c0c6
-timeCreated: 1489481007
+guid: c8cad5691b3c4b943bd51b744ec39911
+timeCreated: 1489481004
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -148,7 +148,8 @@ ModelImporter:
     400138: upperarm_twist_01_r
     400140: HeroTPP
     7400000: mixamo.com
-    7400002: anim_turn_90_right
+    7400002: anim_turn_90_left
+    7400004: anim_turn_45_left
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -174,10 +175,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: anim_turn_90_right
+      name: anim_turn_45_left
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 59
+      lastFrame: 23
       wrapMode: 0
       orientationOffsetY: 50
       level: 0
