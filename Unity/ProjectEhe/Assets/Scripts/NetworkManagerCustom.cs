@@ -47,8 +47,6 @@ public class NetworkManagerCustom : NetworkManager
         //    PlayerAdded(Conn.hostId);
     }
 
-    private int _playerCount = 0;
-
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
         playerSpawnMethod = PlayerSpawnMethod.RoundRobin;
@@ -87,11 +85,7 @@ public class NetworkManagerCustom : NetworkManager
             _gameManagerInstantiated = true;
         }
 
-        GameObject.FindObjectOfType<GameManager>().SetPlayerIds(conn.hostId, _playerCount);
-
-        _playerCount++;
-
-
+        GameObject.FindObjectOfType<GameManager>().SetPlayerIds(playerNumber);
 
         if (PlayerAdded != null)
             PlayerAdded(conn.hostId);
