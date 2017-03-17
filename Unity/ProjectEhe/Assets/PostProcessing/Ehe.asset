@@ -25,9 +25,9 @@ MonoBehaviour:
         motionVectorsResolution: 24
         motionVectorsAmplitude: 64
   antialiasing:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      method: 1
+      method: 0
       fxaaSettings:
         preset: 4
       taaSettings:
@@ -38,8 +38,8 @@ MonoBehaviour:
   ambientOcclusion:
     m_Enabled: 0
     m_Settings:
-      intensity: 1
-      radius: 0.3
+      intensity: 3.23
+      radius: 33.39
       sampleCount: 10
       downsampling: 1
       forceForwardCompatibility: 0
@@ -51,11 +51,11 @@ MonoBehaviour:
       reflection:
         blendType: 0
         reflectionQuality: 2
-        maxDistance: 100
-        iterationCount: 256
+        maxDistance: 137
+        iterationCount: 660
         stepSize: 3
-        widthModifier: 0.5
-        reflectionBlur: 1
+        widthModifier: 5.57
+        reflectionBlur: 0.57
         reflectBackfaces: 0
       intensity:
         reflectionMultiplier: 1
@@ -67,11 +67,11 @@ MonoBehaviour:
   fog:
     m_Enabled: 0
     m_Settings:
-      color: {r: 0.4, g: 0.42352942, b: 0.44313726, a: 0.6039216}
-      mode: 2
-      density: 0.001
-      start: 0
-      end: 600
+      color: {r: 1, g: 1, b: 1, a: 1}
+      mode: 1
+      density: -0.01
+      start: 64.3
+      end: 565.23
       excludeSkybox: 1
   depthOfField:
     m_Enabled: 0
@@ -84,31 +84,31 @@ MonoBehaviour:
   motionBlur:
     m_Enabled: 0
     m_Settings:
-      shutterAngle: 285
+      shutterAngle: 213
       sampleCount: 10
       frameBlending: 0
   eyeAdaptation:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      lowPercent: 65
-      highPercent: 95
-      minLuminance: 0.03
+      lowPercent: 90.604095
+      highPercent: 99
+      minLuminance: 0
       maxLuminance: 2
       exposureCompensation: 0.5
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -8
-      logMax: 4
+      logMin: -2
+      logMax: 8
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.18
-        threshold: 1.16
-        softKnee: 0.477
-        radius: 2.65
-        antiFlicker: 0
+        intensity: 0.23
+        threshold: 0.77
+        softKnee: 0.559
+        radius: 3.13
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
         intensity: 3
