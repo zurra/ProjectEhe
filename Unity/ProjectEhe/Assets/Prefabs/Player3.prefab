@@ -2258,7 +2258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1541794888948706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.9200535, y: 2.5532486, z: 1.2650576}
+  m_LocalPosition: {x: 11.526759, y: -1.3980137, z: -2.6700103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4074449386854668}
@@ -2564,9 +2564,11 @@ MonoBehaviour:
   PlayerState: {fileID: 0}
   Id: -1
   rewiredPlayerId: 0
-  Blaster: {fileID: 0}
-  Lasers: []
-  source: {fileID: 0}
+  Blaster: {fileID: 198757098073601124}
+  Lasers:
+  - {fileID: 8300000, guid: 05ae69161b80c134ba46d25904693fbd, type: 3}
+  - {fileID: 8300000, guid: 38aa1b906dcd4d8438e15527abc28a0d, type: 3}
+  source: {fileID: 82885376734524194}
 --- !u!114 &114618257814467548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5504,7 +5506,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1242558184
+  randomSeed: -123632552
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8171,7 +8173,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1965434333
+  randomSeed: 980680028
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13421,7 +13423,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -134000402
+  randomSeed: 1065617611
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -16082,7 +16084,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1582050144
+  randomSeed: -668776858
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21410,7 +21412,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2079926503
+  randomSeed: -1775617782
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -26720,7 +26722,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1789216214
+  randomSeed: -1634871777
   InitialModule:
     serializedVersion: 3
     enabled: 1
