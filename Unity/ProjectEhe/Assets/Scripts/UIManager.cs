@@ -144,6 +144,15 @@ namespace Assets.Scripts
             }
         }
 
+        public void ResetActiveCommands()
+        {
+            SetOriginalTextParentBackgroundColor(Input1);
+            SetOriginalTextParentBackgroundColor(Input2);
+            SetOriginalTextParentBackgroundColor(Input3);
+            SetOriginalTextParentBackgroundColor(Input4);
+            SetOriginalTextParentBackgroundColor(Input5);
+        }
+
         void SetOriginalTextParentBackgroundColor(Text txt)
         {
             txt.transform.parent.GetComponent<Image>().color = _originalColor;

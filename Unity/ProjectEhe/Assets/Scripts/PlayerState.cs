@@ -79,6 +79,11 @@ namespace Assets.Scripts
             UIManager.DisplayActiveCommand(i);
         }
 
+        public void ResetActiveCommands()
+        {
+            UIManager.ResetActiveCommands();
+        }
+
         public void DisplayCommands(Enumerations.Action action)
         {
             UIManager.ChangeCommandText(action);

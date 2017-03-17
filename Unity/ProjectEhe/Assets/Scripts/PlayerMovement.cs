@@ -213,7 +213,7 @@ namespace Assets.Scripts
         }
 
         [ClientRpc]
-        public void RpcResolveCommands(Enumerations.Action action)
+        public void RpcResolveCommands(Enumerations.Action action, int numberOfAction)
         {
             if(!isLocalPlayer)
                 return;
@@ -223,10 +223,18 @@ namespace Assets.Scripts
                 CmdFire();
             }
             else if (action != Enumerations.Action.Shoot) DoAction(action);
+
+            PlayerState.DisplayActiveCommand(numberOfAction);
         }
 
         [ClientRpc]
-        public void RcpEmptyDisplayCommands()
+        public void RpcResetActiveCommands()
+        {
+            PlayerState.ResetActiveCommands();
+        }
+
+        [ClientRpc]
+        public void RpcEmptyDisplayCommands()
         {
             PlayerState.EmptyCommands();
         }

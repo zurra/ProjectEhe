@@ -120,7 +120,7 @@ namespace Scripts
             {
                 for (int i = 0; i < players.Count; i++)
                 {
-                    PlayerMovements[i].RpcResolveCommands(Actions[PlayerMovements[i].Id][j]);
+                    PlayerMovements[i].RpcResolveCommands(Actions[PlayerMovements[i].Id][j], j);
                     PlayerMovements[i].RpcAnimate(Actions[PlayerMovements[i].Id][j]);
                 }
                 yield return new WaitForSeconds(3f);
@@ -129,7 +129,8 @@ namespace Scripts
             foreach(var player in PlayerMovements)
             {
                 Actions[player.Id].Clear();
-                player.RcpEmptyDisplayCommands();
+                player.RpcEmptyDisplayCommands();
+                player.RpcResetActiveCommands();
 
             }
         }
