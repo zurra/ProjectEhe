@@ -15,7 +15,7 @@ public class NetworkManagerCustom : NetworkManager
     public GameObject PlayerYellow;
 
     public GameObject GameManagerPrefab;
-    private bool _gameManagerInstantiated;
+    private bool _gameManagerInstantiated;  
 
     private int playerNumber;
 
@@ -51,6 +51,7 @@ public class NetworkManagerCustom : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
+        playerSpawnMethod = PlayerSpawnMethod.RoundRobin;
         //base.OnServerAddPlayer(conn, playerControllerId);
 
         GameObject playerPrefab;
@@ -74,7 +75,7 @@ public class NetworkManagerCustom : NetworkManager
         }
 
         Debug.Log("PlayerControllerId " + playerControllerId);
-        var player = Instantiate(playerPrefab, GetStartPosition().position, transform.rotation);
+        var player = Instantiate(playerPrefab, startPositions[playerNumber].position, GetStartPosition().rotation);
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
         playerNumber++;
         if (!_gameManagerInstantiated)
