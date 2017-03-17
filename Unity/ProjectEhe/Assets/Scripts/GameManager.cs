@@ -141,15 +141,15 @@ namespace Scripts
             if (Actions[playerMovement.Id].Count < 4)
             {
                 Actions[playerMovement.Id].Add(action);
+                playerMovement.RpcDisplayCommand(action);
             }
             else if (Actions[playerMovement.Id].Count < 5)
             {
                 Actions[playerMovement.Id].Add(action);
 
                 ServerPlayerReady(playerMovement.Id);
+                playerMovement.RpcDisplayCommand(action);
             }
-
-            playerMovement.RpcDisplayCommand(action);
         }
      
     }
