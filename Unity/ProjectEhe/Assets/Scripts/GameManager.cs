@@ -50,50 +50,21 @@ namespace Scripts
             turnTimeLeft = TurnInterval;
         }
 
-        public void SetPlayerIds(int hostId, int otherId)
-        {
-            if (PlayerMovements.All(item => item.connectionToClient.hostId != hostId))
-            {
-                var playerMovements = GameObject.FindObjectsOfType<PlayerMovement>();
-
-                foreach (var playerMovement in playerMovements)
-                {
-                    Debug.Log("PlayerMovement hostId: " + playerMovement.connectionToClient.hostId);
-                }
-
-                if (playerMovements.Any(item => item.connectionToClient.hostId == hostId))
-                {
-                    var plrMovement = playerMovements.First(item => item.connectionToClient.hostId == hostId);
-                    PlayerMovements.Add(plrMovement);
-                    playerMovements.First(item => item.connectionToClient.hostId == hostId).Id =
-                        otherId;
-                    //plrMovement.PlayerActionGiven += PlayerActionGiven;
-                    //PlayerActions.Add(plrMovement.Id, new List<Enumerations.Action>());
-
-                    Actions.Add(plrMovement.Id, new List<Enumerations.Action>());
-
-                }
-            }
-
-            if (PlayerMovements.Count == 2)
-                StartCoroutine(WaitAndStartGame());
-        }
-
-        IEnumerator WaitAndStartGame()
-        {
-            Debug.Log("Waiting and starting the game");
-            yield return new  WaitForSeconds(1F);
-
-            Debug.Log("Starting the game...");
-
-            StartGame();
-        }
-
-        void StartGame()
+        public void SetPlayerIds(int Id)
         {
             PlayerMovements = FindObjectsOfType<PlayerMovement>().ToList();
 
-            Debug.Log("Game started!");
+            if (PlayerMovements.Any(item => item.Id == -1))
+            {
+                var plrMovement = PlayerMovements.First(item => item.Id == -1);
+
+                PlayerMovements.Add(plrMovement);
+                PlayerMovements.Last().Id = Id;
+                //plrMovement.PlayerActionGiven += PlayerActionGiven;
+                //PlayerActions.Add(plrMovement.Id, new List<Enumerations.Action>());
+
+                Actions.Add(plrMovement.Id, new List<Enumerations.Action>());
+            }
         }
 
         public void StartTurnExecuting()
