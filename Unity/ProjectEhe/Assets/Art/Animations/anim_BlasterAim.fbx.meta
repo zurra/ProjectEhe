@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 406b0fa3cb54b6344a5a7a9c4227dc98
+guid: 9d716d7aa6c0115449cbdda4e9500f2c
 timeCreated: 1489663137
 licenseType: Pro
 ModelImporter:
@@ -150,6 +150,7 @@ ModelImporter:
     4300000: HeroTPP_MESH
     7400000: Scene
     7400002: anim_BlasterFire
+    7400004: anim_BlasterAim
     9500000: //RootNode
     13700000: HeroTPP_MESH
   materials:
@@ -174,10 +175,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: anim_BlasterFire
+      name: anim_BlasterAim
       takeName: Scene
-      firstFrame: 40
-      lastFrame: 124
+      firstFrame: 1
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -196,11 +197,18 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: FireBlaster
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

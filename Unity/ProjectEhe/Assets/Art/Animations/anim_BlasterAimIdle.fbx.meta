@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 406b0fa3cb54b6344a5a7a9c4227dc98
+guid: c643936a03f7ea24da1f32457ab12ae8
 timeCreated: 1489663137
 licenseType: Pro
 ModelImporter:
@@ -150,6 +150,8 @@ ModelImporter:
     4300000: HeroTPP_MESH
     7400000: Scene
     7400002: anim_BlasterFire
+    7400004: anim_BlasterAim
+    7400006: anim_BlasterAimIdle
     9500000: //RootNode
     13700000: HeroTPP_MESH
   materials:
@@ -174,18 +176,18 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: anim_BlasterFire
+      name: anim_BlasterAimIdle
       takeName: Scene
-      firstFrame: 40
-      lastFrame: 124
+      firstFrame: 12
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -200,7 +202,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -6,15 +6,21 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: glow_dot_add
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_Name: EnvGrid2
+  m_Shader: {fileID: 4800000, guid: 1d6ba90178cbef940997534855f839db, type: 3}
+  m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
+  m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
+    - first:
+        name: _Albedo
+      second:
+        m_Texture: {fileID: 2800000, guid: 5638d8f85395577419a5d2ed123e6958, type: 3}
+        m_Scale: {x: 5, y: 5}
+        m_Offset: {x: 0, y: 0}
     - first:
         name: _BumpMap
       second:
@@ -25,7 +31,7 @@ Material:
         name: _DetailAlbedoMap
       second:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 50, y: 50}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _DetailMask
@@ -42,13 +48,19 @@ Material:
     - first:
         name: _EmissionMap
       second:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 5638d8f85395577419a5d2ed123e6958, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 8f5ee04947e003441921dffbf787fbb1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5638d8f85395577419a5d2ed123e6958, type: 3}
+        m_Scale: {x: 5, y: 5}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTexture
+      second:
+        m_Texture: {fileID: 2800000, guid: 2f10adaf6bbe0b74ab7ffa4a1fbf9f10, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -71,6 +83,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
+        name: _AlbedoPower
+      second: 0.15
+    - first:
+        name: _Amplitude
+      second: 1
+    - first:
         name: _BumpScale
       second: 1
     - first:
@@ -83,14 +101,23 @@ Material:
         name: _DstBlend
       second: 0
     - first:
+        name: _Gloss
+      second: 0
+    - first:
+        name: _GlossMapScale
+      second: 1
+    - first:
         name: _Glossiness
+      second: 0.096
+    - first:
+        name: _GlossyReflections
+      second: 0
+    - first:
+        name: _GlowAmount
       second: 0.5
     - first:
-        name: _InvFade
-      second: 2.12
-    - first:
         name: _Metallic
-      second: 0
+      second: 1
     - first:
         name: _Mode
       second: 0
@@ -101,6 +128,21 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
+        name: _Power
+      second: 79.1
+    - first:
+        name: _Smoothness
+      second: 0
+    - first:
+        name: _SmoothnessTextureChannel
+      second: 0
+    - first:
+        name: _SpecularHighlights
+      second: 0
+    - first:
+        name: _Speed
+      second: 0.5
+    - first:
         name: _SrcBlend
       second: 1
     - first:
@@ -109,13 +151,31 @@ Material:
     - first:
         name: _ZWrite
       second: 1
+    - first:
+        name: _mul
+      second: 0.134
+    - first:
+        name: _node_4182
+      second: 0.158
+    - first:
+        name: _node_966
+      second: 1
+    - first:
+        name: _power2
+      second: 0.054
+    - first:
+        name: _tiling
+      second: 5
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.17647058, g: 0.17647058, b: 0.17647058, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
-        name: _TintColor
-      second: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}
+        name: _GlowColor
+      second: {r: 0, g: 1, b: 0, a: 1}
+    - first:
+        name: _MainColor
+      second: {r: 0, g: 25, b: 0, a: 1}
