@@ -2181,7 +2181,7 @@ Transform:
   m_GameObject: {fileID: 1541794888948706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 9.687408, y: -1.4467518, z: -2.8989842}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4964630539139926}
   - {fileID: 4474482089510292}
@@ -2340,7 +2340,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!82 &82018348607209068
 AudioSource:

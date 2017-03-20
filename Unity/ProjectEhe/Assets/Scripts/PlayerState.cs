@@ -7,7 +7,7 @@ namespace Assets.Scripts
 {
     public class PlayerState : NetworkBehaviour, INotifyPropertyChanged
     {
-        public const int maxHealth = 10;
+        public const int maxHealth = 5;
         public UIManager UIManager;
         public List<Enumerations.Action> ActionList;
         
@@ -36,7 +36,8 @@ namespace Assets.Scripts
         {
             if (isLocalPlayer)
             {
-                transform.position = new Vector3(-4, -1, 1.95f);
+                transform.position =
+                    GameObject.Find("Spawns").transform.GetChild(UnityEngine.Random.Range(0, 3)).position;
             }
         }
 
@@ -66,16 +67,20 @@ namespace Assets.Scripts
             if (health <= 0)
             {
                 Health = maxHealth;
-                if (isLocalPlayer)
-                {
-                    UIManager.Lose();
-                }
-                else if (!isLocalPlayer)
-                {
-                    UIManager.Win();
-                }
-                RpcRespawn();
+                //if (isLocalPlayer)
+                //{
+                //    UIManager.Lose();
+                  
+                //}
+                //else if (!isLocalPlayer)
+                //{
+                //    UIManager.Win();
+                //}
+   
             }
+
+            if(isServer)
+                RpcRespawn();
         }
 
         public void EmptyCommands()

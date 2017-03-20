@@ -33,6 +33,11 @@ namespace Assets.Scripts
             _originalColor = Input1.transform.parent.GetComponent<Image>().color;
         }
 
+        public void ResetWinLose()
+        {
+            WinLose.enabled = false;
+        }
+
         public void Win()
         {
             WinLose.text = "You Win!";

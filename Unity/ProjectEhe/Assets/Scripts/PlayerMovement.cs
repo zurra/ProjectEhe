@@ -43,7 +43,7 @@ namespace Assets.Scripts
             PlayerState = GetComponent<PlayerState>();
             //PlayerGreen.SetActive(true); 
             _animator = GetComponent<Animator>();
-            _animator.speed = 3;
+            _animator.speed = 2;
         }
 
         public override void OnStartLocalPlayer()
@@ -138,13 +138,13 @@ namespace Assets.Scripts
             switch (action)
             {
                 case Enumerations.Action.TurnRight:
-                    _animator.SetInteger("TurnIndex", 3);
+                    _animator.SetInteger("TurnIndex", 2);
                     _animator.SetTrigger("Turn");
 
                     GetComponent<NetworkAnimator>().SetTrigger("Turn");
                     break;
                 case Enumerations.Action.TurnLeft:
-                    _animator.SetInteger("TurnIndex", 0);
+                    _animator.SetInteger("TurnIndex", 1);
                     _animator.SetTrigger("Turn");
 
                     GetComponent<NetworkAnimator>().SetTrigger("Turn");
@@ -256,7 +256,9 @@ namespace Assets.Scripts
 
         public void FireBlaster()
         {
-            Blaster.Play();
+           // Debug.Log("Fire blaster!");
+
+            //Blaster.Play();
         }
 
         public void PlayBlasterSound()
